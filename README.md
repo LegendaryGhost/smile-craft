@@ -1,7 +1,79 @@
 # SmileCraft
 A desktop app to manage the patients of a dentistry
 
-## I - Functional Specification
+## I - Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### 1 - Prerequisites
+
+Before you can run this project, you need to install the following NuGet packages:
+
+- `Microsoft.EntityFrameworkCore`
+- `Microsoft.EntityFrameworkCore.Tools`
+- `Npgsql.EntityFrameworkCore.PostgreSQL`
+
+You can install these packages using the NuGet Package Manager in Visual Studio or by running the following command in the .NET Core CLI:
+
+```bash
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+```
+
+### 2 - Setting Up Environment Variables
+
+This project requires an environment variable named `POSTGRES_CONNECTION_STRING` to be set. This variable should hold the connection string to your PostgreSQL database.
+
+#### a - Windows
+
+You can set this environment variable in the System Properties dialog. Go to the Advanced tab, click on Environment Variables, and create a new system variable with the name `POSTGRES_CONNECTION_STRING` and the value of your connection string.
+
+#### b - Linux/Mac
+
+You can set this environment variable in your shell profile file (like `~/.bashrc` or `~/.zshrc`). Add the following line to the file:
+
+```bash
+export POSTGRES_CONNECTION_STRING="Host=127.0.0.1:5432;Database=smilecraft;Username=myusername;Password=mypassword"
+```
+
+Replace `"Host=127.0.0.1:5432;Database=mydatabase;Username=myusername;Password=mypassword"` with your actual connection string.
+
+After setting the environment variable, save the file and reload your shell profile:
+
+```bash
+source ~/.bashrc
+```
+
+Or, if you're using zsh:
+
+```bash
+source ~/.zshrc
+```
+
+## II - Running the Project
+
+Now you should be able to run the project. Please refer to the project documentation for specific instructions.
+
+## III - Built With
+
+- [.NET Core](https://dotnet.microsoft.com/) - The web framework used
+- [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) - The ORM used
+- [Npgsql](https://www.npgsql.org/) - The PostgreSQL provider for Entity Framework Core
+
+## IV - Authors
+
+- **Rihantiana MBOLATSIORY** - *Primary Developper* - [LegendaryGhost](https://github.com/LegendaryGhost)
+
+## V - License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## VI - Acknowledgments
+
+- Hat tip to anyone whose code was used
+
+## VII - Functional Specification
 
 1. **Introduction**
 
