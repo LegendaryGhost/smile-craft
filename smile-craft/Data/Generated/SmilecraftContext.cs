@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using smile_craft.Models;
 
-namespace smile_craft.Models;
+namespace smile_craft.Data;
 
 public partial class SmilecraftContext : DbContext
 {
@@ -32,12 +31,6 @@ public partial class SmilecraftContext : DbContext
     public virtual DbSet<Tooth> Teeth { get; set; }
 
     public virtual DbSet<ToothStateHistory> ToothStateHistories { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var connectionString = Environment.GetEnvironmentVariable("POSTGRES_CONNECTION_STRING");
-        optionsBuilder.UseNpgsql(connectionString);
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
