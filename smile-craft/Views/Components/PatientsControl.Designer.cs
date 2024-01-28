@@ -45,6 +45,7 @@
             // 
             // patientsGridView
             // 
+            patientsGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             patientsGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             patientsGridView.Location = new Point(24, 178);
             patientsGridView.Name = "patientsGridView";
@@ -52,14 +53,14 @@
             patientsGridView.Size = new Size(924, 457);
             patientsGridView.TabIndex = 1;
             // 
-            // patientsControl
+            // PatientsControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(222, 226, 230);
             Controls.Add(patientsGridView);
             Controls.Add(title);
-            Name = "patientsControl";
+            Name = "PatientsControl";
             Size = new Size(973, 660);
             ((System.ComponentModel.ISupportInitialize)patientsGridView).EndInit();
             ResumeLayout(false);

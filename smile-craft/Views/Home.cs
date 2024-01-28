@@ -1,21 +1,34 @@
+using smile_craft.Components;
 using smile_craft.Data;
 using smile_craft.Models;
+using smile_craft.Presenter;
+using smile_craft.Views;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace smile_craft
 {
-    public partial class Home : Form
+    public partial class Home : Form, IPatientsView
     {
         private bool dragging = false;
         private Point initialMousePosition;
         private Point initialWindowPosition;
-
+        private readonly PatientsPresenter patientsPresenter;
+        private readonly SmilecraftContext context;
 
         public Home()
         {
             InitializeComponent();
             this.CenterToScreen();
+            context = new SmilecraftContext();
+            patientsPresenter = new PatientsPresenter(context, this);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            context.Dispose();
+            base.OnFormClosing(e);
         }
 
         private void Close(object sender, EventArgs e)
@@ -64,6 +77,16 @@ namespace smile_craft
         private void ShowAddPatientPanel(object sender, EventArgs e)
         {
             addPatientControl.BringToFront();
+        }
+
+        public DataGridView GetPatientsGridView()
+        {
+            return patientsControl.PatientsGridView;
+        }
+
+        void IPatientsView.SetPatientsDataSource(BindingList<PatientSummary> patients)
+        {
+            GetPatientsGridView().DataSource = patients;
         }
     }
 }

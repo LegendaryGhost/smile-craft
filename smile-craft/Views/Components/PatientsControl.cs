@@ -12,9 +12,12 @@ namespace smile_craft.Components
 {
     public partial class PatientsControl : UserControl
     {
+        public DataGridView PatientsGridView { get; set; }
+
         public PatientsControl()
         {
             InitializeComponent();
+            PatientsGridView = patientsGridView;
         }
     }
 }
