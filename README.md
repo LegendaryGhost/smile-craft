@@ -88,7 +88,7 @@ The objective of this application is to enable a dental clinic to manage the den
 
    a. **Patient Management**
 
-      - [ ] Addition of a new patient with the following information:
+      - [x] Addition of a new patient with the following information:
         - Last Name
         - First Name
         - Date of Birth

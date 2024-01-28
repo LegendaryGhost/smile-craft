@@ -53,7 +53,7 @@ CREATE TABLE perform(
    id_patient INTEGER,
    id_tooth INTEGER,
    id_operation INTEGER,
-   date_operation DATE NOT NULL,
+   date_operation DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
    PRIMARY KEY(id_perform),
    FOREIGN KEY(id_patient) REFERENCES patient(id_patient),
    FOREIGN KEY(id_tooth) REFERENCES tooth(id_tooth),
