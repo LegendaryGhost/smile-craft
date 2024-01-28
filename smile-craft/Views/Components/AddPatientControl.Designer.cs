@@ -117,6 +117,7 @@
             addNewPatientBtn.TabIndex = 8;
             addNewPatientBtn.Text = "Ajouter";
             addNewPatientBtn.UseVisualStyleBackColor = false;
+            addNewPatientBtn.Click += AddPatient;
             // 
             // AddPatientControl
             // 

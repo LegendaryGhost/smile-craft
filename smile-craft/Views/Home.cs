@@ -17,12 +17,39 @@ namespace smile_craft
         private readonly PatientsPresenter patientsPresenter;
         private readonly SmilecraftContext context;
 
+        public event Action AddPatientEvent;
+
         public Home()
         {
             InitializeComponent();
             this.CenterToScreen();
             context = new SmilecraftContext();
             patientsPresenter = new PatientsPresenter(context, this);
+
+            // Subscribe the event to the patientsPresenter
+            AddPatientEvent += patientsPresenter.AddPatient;
+            addPatientControl.AddPatientEvent += AddPatient;
+        }
+
+        public string GetFirstName()
+        {
+            return addPatientControl.FirstNameTB.Text;
+        }
+
+        public string GetLastName()
+        {
+            return addPatientControl.LastNameTB.Text;
+        }
+
+        public DateTime? GetBirthday()
+        {
+            return addPatientControl.BirthdayDTP.Value;
+        }
+
+        private void AddPatient(object sender, EventArgs e)
+        {
+            AddPatientEvent?.Invoke();
+            ShowPatientsPanel(sender, e);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

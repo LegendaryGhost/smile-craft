@@ -19,12 +19,41 @@ namespace smile_craft.Presenter
 
         public PatientsPresenter(SmilecraftContext context, IPatientsView patientsView)
         {
-            _patientList = new BindingList<PatientSummary>();
+            _patientList = [];
             _context = context;
             _patientsView = patientsView;
             LoadAllPatients();
-            _patientsView.SetPatientsDataSource(_patientList);
-            ((Form)_patientsView).Show();
+        }
+
+        public void AddPatient()
+        {
+            string firstName = _patientsView.GetFirstName();
+            string lastName = _patientsView.GetLastName();
+            DateTime? birthday = _patientsView.GetBirthday();
+
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
+            {
+                MessageBox.Show("First name and last name cannot be empty.");
+                return;
+            }
+
+            if (birthday > DateTime.Today)
+            {
+                MessageBox.Show("Birthday cannot be a future date.");
+                return;
+            }
+
+            var newPatient = new Patient
+            {
+                Fristname = firstName,
+                Lastname = lastName,
+                Birthday = birthday == null ? null : DateOnly.FromDateTime((DateTime)birthday)
+            };
+
+            _context.Patients.Add(newPatient);
+            _context.SaveChanges();
+
+            LoadAllPatients();
         }
 
         private void LoadAllPatients()
@@ -40,6 +69,7 @@ namespace smile_craft.Presenter
                                     .ToList();
 
             _patientList = new BindingList<PatientSummary>(patientSummaries);
+            _patientsView.SetPatientsDataSource(_patientList);
         }
 
     }
