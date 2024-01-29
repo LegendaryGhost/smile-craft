@@ -23,7 +23,7 @@ namespace smile_craft.Presenter
             _patientList = [];
             _context = context;
             _patientsView = patientsView;
-            _patientsDataGrid = patientsView.GetPatientsGridView();
+            _patientsDataGrid = patientsView.GetPatientsDataGrid();
             SetUpPatientsDataGrid();
             LoadAllPatients();
         }
@@ -48,7 +48,7 @@ namespace smile_craft.Presenter
 
             var newPatient = new Patient
             {
-                Fristname = firstName,
+                Firstname = firstName,
                 Lastname = lastName,
                 Birthday = birthday == null ? null : DateOnly.FromDateTime((DateTime)birthday)
             };
@@ -108,7 +108,7 @@ namespace smile_craft.Presenter
                                     .Select(p => new PatientSummary
                                     (
                                         p.IdPatient,
-                                        p.Fristname,
+                                        p.Firstname,
                                         p.Lastname,
                                         p.Birthday
                                     ))
@@ -119,21 +119,49 @@ namespace smile_craft.Presenter
 
         private void LoadSinglePatient(object? sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && _patientsView.GetPatientsGridView().Columns[e.ColumnIndex].Name == "Details")
+            if (e.RowIndex >= 0 && _patientsDataGrid.Columns[e.ColumnIndex].Name == "Details")
             {
                 if (_patientsDataGrid.Rows.Count > e.RowIndex)
                 {
                     // Gets the ID of the patient
-                    int patientId = (int)_patientsView.GetPatientsGridView().Rows[e.RowIndex].Cells["Id"].Value;
+                    int patientId = (int)_patientsDataGrid.Rows[e.RowIndex].Cells["Id"].Value;
 
                     Patient? patient = _context.Patients.Find(patientId);
 
                     if (patient != null)
                     {
                         _patientsView.DisplaySinglePatient(patient);
+                        LoadPatientsOperation(patientId);
                     }
                 }
             }
         }
+
+        private void LoadPatientsOperation(int patientId)
+        {
+            var operations = _context.Performs
+                .Where(p => p.IdPatient == patientId)
+                .Join(_context.Teeth,
+                    p => p.IdTooth,
+                    t => t.IdTooth,
+                    (p, t) => new { Perform = p, Tooth = t })
+                .Join(_context.Categories,
+                    pt => pt.Tooth.IdCategory,
+                    c => c.IdCategory,
+                    (pt, c) => new { Operation = pt.Perform, pt.Tooth, Category = c })
+                .Join(_context.Operations,
+                    opc => opc.Operation.IdOperation,
+                    o => o.IdOperation,
+                    (opc, o) => new OperationSummary(
+                        opc.Operation.IdPerform,
+                        $"{opc.Category.Designation} {opc.Tooth.IdTooth}",
+                        o.Name,
+                        opc.Operation.DateOperation)
+                ).ToList();
+
+            var operationsBindingList = new BindingList<OperationSummary>(operations);
+            _patientsView.GetPatientOperationsDataGrid().DataSource = operationsBindingList;
+        }
+
     }
 }

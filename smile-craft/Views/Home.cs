@@ -106,19 +106,25 @@ namespace smile_craft
             addPatientControl.BringToFront();
         }
 
-        public DataGridView GetPatientsGridView()
+        public DataGridView GetPatientsDataGrid()
         {
             return patientsControl.PatientsGridView;
         }
 
         void IPatientsView.SetPatientsDataSource(BindingList<PatientSummary> patients)
         {
-            GetPatientsGridView().DataSource = patients;
+            GetPatientsDataGrid().DataSource = patients;
         }
 
         public void DisplaySinglePatient(Patient patient)
         {
-            throw new NotImplementedException();
+            displayPatientControl.Patient = patient;
+            displayPatientControl.BringToFront();
+        }
+
+        public DataGridView GetPatientOperationsDataGrid()
+        {
+            return displayPatientControl.operationsDGV;
         }
     }
 }

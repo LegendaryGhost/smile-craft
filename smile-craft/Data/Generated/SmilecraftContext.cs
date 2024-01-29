@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using smile_craft.Models;
 
 namespace smile_craft.Data;
@@ -81,9 +83,9 @@ public partial class SmilecraftContext : DbContext
 
             entity.Property(e => e.IdPatient).HasColumnName("id_patient");
             entity.Property(e => e.Birthday).HasColumnName("birthday");
-            entity.Property(e => e.Fristname)
+            entity.Property(e => e.Firstname)
                 .HasMaxLength(50)
-                .HasColumnName("fristname");
+                .HasColumnName("firstname");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(50)
                 .HasColumnName("lastname");
@@ -96,7 +98,9 @@ public partial class SmilecraftContext : DbContext
             entity.ToTable("perform");
 
             entity.Property(e => e.IdPerform).HasColumnName("id_perform");
-            entity.Property(e => e.DateOperation).HasColumnName("date_operation");
+            entity.Property(e => e.DateOperation)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("date_operation");
             entity.Property(e => e.IdOperation).HasColumnName("id_operation");
             entity.Property(e => e.IdPatient).HasColumnName("id_patient");
             entity.Property(e => e.IdTooth).HasColumnName("id_tooth");

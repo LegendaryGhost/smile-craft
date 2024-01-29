@@ -27,7 +27,7 @@ namespace smile_craft.Views.Components
             set
             {
                 _patient = value;
-                fullNameLabel.Text = _patient?.Fristname + " " + _patient?.Lastname;
+                fullNameLabel.Text = _patient?.Firstname + " " + _patient?.Lastname;
                 birthdayLabelText.Text = _patient?.Birthday?.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
         }

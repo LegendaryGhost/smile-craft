@@ -51,6 +51,7 @@
             patientsGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             patientsGridView.Location = new Point(24, 178);
             patientsGridView.Name = "patientsGridView";
+            patientsGridView.ReadOnly = true;
             patientsGridView.RowHeadersWidth = 51;
             patientsGridView.Size = new Size(924, 457);
             patientsGridView.TabIndex = 1;

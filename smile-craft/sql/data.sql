@@ -18,10 +18,10 @@ INSERT INTO operation(name) VALUES
     ('replacement');
     
 INSERT INTO category (designation) VALUES
-    ('Incisors'),
-    ('Canines'),
-    ('Premolars'),
-    ('Molars');
+    ('Incisor'),
+    ('Canine'),
+    ('Premolar'),
+    ('Molar');
 
 INSERT INTO tooth (location, id_category) VALUES
     ('up', 4),

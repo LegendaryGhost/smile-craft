@@ -106,6 +106,7 @@
             // operationsPage
             // 
             operationsPage.Controls.Add(operationsDGV);
+            operationsPage.Font = new Font("Segoe UI", 9F);
             operationsPage.Location = new Point(4, 33);
             operationsPage.Name = "operationsPage";
             operationsPage.Padding = new Padding(3);
@@ -116,10 +117,15 @@
             // 
             // operationsDGV
             // 
+            operationsDGV.AllowUserToAddRows = false;
+            operationsDGV.AllowUserToDeleteRows = false;
+            operationsDGV.AllowUserToResizeRows = false;
+            operationsDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             operationsDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             operationsDGV.Dock = DockStyle.Fill;
             operationsDGV.Location = new Point(3, 3);
             operationsDGV.Name = "operationsDGV";
+            operationsDGV.ReadOnly = true;
             operationsDGV.RowHeadersWidth = 51;
             operationsDGV.Size = new Size(959, 495);
             operationsDGV.TabIndex = 0;
@@ -351,7 +357,6 @@
         private TabPage teethStatePage;
         private TabPage newOperationPage;
         private TabPage dynamicGenerationPage;
-        private DataGridView operationsDGV;
         private NumericUpDown numericUpDown1;
         private Label currencyLabel;
         private Label amountLabel;
@@ -359,7 +364,6 @@
         private Button validateBtn;
         private DataGridView generatedOperationsDGV;
         private Button addNewPatientBtn;
-        private TextBox firstNameTB;
         private Label opeationLabel;
         private TextBox lastNameTB;
         private Label toothLabel;
@@ -368,5 +372,6 @@
         private ComboBox priorityCB;
         private ComboBox operationCB;
         private ComboBox toothCB;
+        public DataGridView operationsDGV;
     }
 }

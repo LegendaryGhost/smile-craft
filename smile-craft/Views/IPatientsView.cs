@@ -15,7 +15,8 @@ namespace smile_craft.Views
         string GetLastName();
         DateTime? GetBirthday();
         public void SetPatientsDataSource(BindingList<PatientSummary> patients);
-        public DataGridView GetPatientsGridView();
+        public DataGridView GetPatientsDataGrid();
         public void DisplaySinglePatient(Patient patient);
+        public DataGridView GetPatientOperationsDataGrid();
     }
 }
