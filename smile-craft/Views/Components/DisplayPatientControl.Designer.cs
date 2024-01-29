@@ -28,29 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            fullNameTB = new Label();
-            label1 = new Label();
-            label2 = new Label();
+            fullNameLabel = new Label();
+            birthdayLabel = new Label();
+            birthdayLabelText = new Label();
             tabControl = new TabControl();
             operationsPage = new TabPage();
             operationsDGV = new DataGridView();
             teethStatePage = new TabPage();
             newOperationPage = new TabPage();
+            operationCB = new ComboBox();
+            toothCB = new ComboBox();
+            addNewPatientBtn = new Button();
+            opeationLabel = new Label();
+            toothLabel = new Label();
             dynamicGenerationPage = new TabPage();
+            priorityCB = new ComboBox();
+            priorityLabel = new Label();
+            suggestLabel = new Label();
             validateBtn = new Button();
             generatedOperationsDGV = new DataGridView();
             generateBtn = new Button();
             currencyLabel = new Label();
             amountLabel = new Label();
             numericUpDown1 = new NumericUpDown();
-            addNewPatientBtn = new Button();
-            opeationLabel = new Label();
-            toothLabel = new Label();
-            suggestLabel = new Label();
-            priorityLabel = new Label();
-            priorityCB = new ComboBox();
-            toothCB = new ComboBox();
-            operationCB = new ComboBox();
             tabControl.SuspendLayout();
             operationsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)operationsDGV).BeginInit();
@@ -60,35 +60,35 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
-            // fullNameTB
+            // fullNameLabel
             // 
-            fullNameTB.AutoSize = true;
-            fullNameTB.Font = new Font("OCR A Extended", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            fullNameTB.Location = new Point(23, 19);
-            fullNameTB.Name = "fullNameTB";
-            fullNameTB.Size = new Size(204, 32);
-            fullNameTB.TabIndex = 2;
-            fullNameTB.Text = "Prénom Nom";
+            fullNameLabel.AutoSize = true;
+            fullNameLabel.Font = new Font("OCR A Extended", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            fullNameLabel.Location = new Point(23, 19);
+            fullNameLabel.Name = "fullNameLabel";
+            fullNameLabel.Size = new Size(204, 32);
+            fullNameLabel.TabIndex = 2;
+            fullNameLabel.Text = "Prénom Nom";
             // 
-            // label1
+            // birthdayLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("OCR A Extended", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(23, 65);
-            label1.Name = "label1";
-            label1.Size = new Size(375, 32);
-            label1.TabIndex = 3;
-            label1.Text = "Date de naissance :";
+            birthdayLabel.AutoSize = true;
+            birthdayLabel.Font = new Font("OCR A Extended", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            birthdayLabel.Location = new Point(23, 65);
+            birthdayLabel.Name = "birthdayLabel";
+            birthdayLabel.Size = new Size(375, 32);
+            birthdayLabel.TabIndex = 3;
+            birthdayLabel.Text = "Date de naissance :";
             // 
-            // label2
+            // birthdayLabelText
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("OCR A Extended", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(414, 65);
-            label2.Name = "label2";
-            label2.Size = new Size(194, 32);
-            label2.TabIndex = 4;
-            label2.Text = "01/01/1970";
+            birthdayLabelText.AutoSize = true;
+            birthdayLabelText.Font = new Font("OCR A Extended", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            birthdayLabelText.Location = new Point(414, 65);
+            birthdayLabelText.Name = "birthdayLabelText";
+            birthdayLabelText.Size = new Size(194, 32);
+            birthdayLabelText.TabIndex = 4;
+            birthdayLabelText.Text = "01/01/1970";
             // 
             // tabControl
             // 
@@ -126,10 +126,10 @@
             // 
             // teethStatePage
             // 
-            teethStatePage.Location = new Point(4, 33);
+            teethStatePage.Location = new Point(4, 29);
             teethStatePage.Name = "teethStatePage";
             teethStatePage.Padding = new Padding(3);
-            teethStatePage.Size = new Size(965, 501);
+            teethStatePage.Size = new Size(965, 505);
             teethStatePage.TabIndex = 1;
             teethStatePage.Text = "Etat des dents";
             teethStatePage.UseVisualStyleBackColor = true;
@@ -141,12 +141,63 @@
             newOperationPage.Controls.Add(addNewPatientBtn);
             newOperationPage.Controls.Add(opeationLabel);
             newOperationPage.Controls.Add(toothLabel);
-            newOperationPage.Location = new Point(4, 33);
+            newOperationPage.Location = new Point(4, 29);
             newOperationPage.Name = "newOperationPage";
-            newOperationPage.Size = new Size(965, 501);
+            newOperationPage.Size = new Size(965, 505);
             newOperationPage.TabIndex = 2;
             newOperationPage.Text = "Nouvelle Opération";
             newOperationPage.UseVisualStyleBackColor = true;
+            // 
+            // operationCB
+            // 
+            operationCB.FormattingEnabled = true;
+            operationCB.Location = new Point(344, 227);
+            operationCB.Name = "operationCB";
+            operationCB.Size = new Size(289, 32);
+            operationCB.TabIndex = 17;
+            // 
+            // toothCB
+            // 
+            toothCB.FormattingEnabled = true;
+            toothCB.Location = new Point(344, 140);
+            toothCB.Name = "toothCB";
+            toothCB.Size = new Size(289, 32);
+            toothCB.TabIndex = 16;
+            // 
+            // addNewPatientBtn
+            // 
+            addNewPatientBtn.BackColor = Color.FromArgb(33, 37, 41);
+            addNewPatientBtn.FlatAppearance.BorderSize = 0;
+            addNewPatientBtn.FlatStyle = FlatStyle.Flat;
+            addNewPatientBtn.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            addNewPatientBtn.ForeColor = Color.FromArgb(224, 224, 224);
+            addNewPatientBtn.Location = new Point(344, 293);
+            addNewPatientBtn.Name = "addNewPatientBtn";
+            addNewPatientBtn.Padding = new Padding(5, 0, 0, 0);
+            addNewPatientBtn.Size = new Size(289, 45);
+            addNewPatientBtn.TabIndex = 15;
+            addNewPatientBtn.Text = "Ajouter";
+            addNewPatientBtn.UseVisualStyleBackColor = false;
+            // 
+            // opeationLabel
+            // 
+            opeationLabel.AutoSize = true;
+            opeationLabel.Font = new Font("OCR A Extended", 13.8F);
+            opeationLabel.Location = new Point(344, 200);
+            opeationLabel.Name = "opeationLabel";
+            opeationLabel.Size = new Size(136, 24);
+            opeationLabel.TabIndex = 11;
+            opeationLabel.Text = "Opération";
+            // 
+            // toothLabel
+            // 
+            toothLabel.AutoSize = true;
+            toothLabel.Font = new Font("OCR A Extended", 13.8F);
+            toothLabel.Location = new Point(344, 113);
+            toothLabel.Name = "toothLabel";
+            toothLabel.Size = new Size(66, 24);
+            toothLabel.TabIndex = 9;
+            toothLabel.Text = "Dent";
             // 
             // dynamicGenerationPage
             // 
@@ -159,12 +210,40 @@
             dynamicGenerationPage.Controls.Add(currencyLabel);
             dynamicGenerationPage.Controls.Add(amountLabel);
             dynamicGenerationPage.Controls.Add(numericUpDown1);
-            dynamicGenerationPage.Location = new Point(4, 33);
+            dynamicGenerationPage.Location = new Point(4, 29);
             dynamicGenerationPage.Name = "dynamicGenerationPage";
-            dynamicGenerationPage.Size = new Size(965, 501);
+            dynamicGenerationPage.Size = new Size(965, 505);
             dynamicGenerationPage.TabIndex = 3;
             dynamicGenerationPage.Text = "Génération dynamique";
             dynamicGenerationPage.UseVisualStyleBackColor = true;
+            // 
+            // priorityCB
+            // 
+            priorityCB.FormattingEnabled = true;
+            priorityCB.Location = new Point(597, 21);
+            priorityCB.Name = "priorityCB";
+            priorityCB.Size = new Size(151, 32);
+            priorityCB.TabIndex = 14;
+            // 
+            // priorityLabel
+            // 
+            priorityLabel.AutoSize = true;
+            priorityLabel.Font = new Font("OCR A Extended", 13.8F);
+            priorityLabel.Location = new Point(440, 23);
+            priorityLabel.Name = "priorityLabel";
+            priorityLabel.Size = new Size(122, 24);
+            priorityLabel.TabIndex = 13;
+            priorityLabel.Text = "Priorité";
+            // 
+            // suggestLabel
+            // 
+            suggestLabel.AutoSize = true;
+            suggestLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            suggestLabel.Location = new Point(341, 159);
+            suggestLabel.Name = "suggestLabel";
+            suggestLabel.Size = new Size(283, 23);
+            suggestLabel.TabIndex = 12;
+            suggestLabel.Text = "Opérations suggérés :";
             // 
             // validateBtn
             // 
@@ -185,7 +264,7 @@
             // 
             generatedOperationsDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             generatedOperationsDGV.Dock = DockStyle.Bottom;
-            generatedOperationsDGV.Location = new Point(0, 203);
+            generatedOperationsDGV.Location = new Point(0, 207);
             generatedOperationsDGV.Name = "generatedOperationsDGV";
             generatedOperationsDGV.RowHeadersWidth = 51;
             generatedOperationsDGV.Size = new Size(965, 298);
@@ -236,94 +315,15 @@
             numericUpDown1.TabIndex = 0;
             numericUpDown1.ThousandsSeparator = true;
             // 
-            // addNewPatientBtn
-            // 
-            addNewPatientBtn.BackColor = Color.FromArgb(33, 37, 41);
-            addNewPatientBtn.FlatAppearance.BorderSize = 0;
-            addNewPatientBtn.FlatStyle = FlatStyle.Flat;
-            addNewPatientBtn.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            addNewPatientBtn.ForeColor = Color.FromArgb(224, 224, 224);
-            addNewPatientBtn.Location = new Point(344, 293);
-            addNewPatientBtn.Name = "addNewPatientBtn";
-            addNewPatientBtn.Padding = new Padding(5, 0, 0, 0);
-            addNewPatientBtn.Size = new Size(289, 45);
-            addNewPatientBtn.TabIndex = 15;
-            addNewPatientBtn.Text = "Ajouter";
-            addNewPatientBtn.UseVisualStyleBackColor = false;
-            // 
-            // opeationLabel
-            // 
-            opeationLabel.AutoSize = true;
-            opeationLabel.Font = new Font("OCR A Extended", 13.8F);
-            opeationLabel.Location = new Point(344, 200);
-            opeationLabel.Name = "opeationLabel";
-            opeationLabel.Size = new Size(136, 24);
-            opeationLabel.TabIndex = 11;
-            opeationLabel.Text = "Opération";
-            // 
-            // toothLabel
-            // 
-            toothLabel.AutoSize = true;
-            toothLabel.Font = new Font("OCR A Extended", 13.8F);
-            toothLabel.Location = new Point(344, 113);
-            toothLabel.Name = "toothLabel";
-            toothLabel.Size = new Size(66, 24);
-            toothLabel.TabIndex = 9;
-            toothLabel.Text = "Dent";
-            // 
-            // suggestLabel
-            // 
-            suggestLabel.AutoSize = true;
-            suggestLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            suggestLabel.Location = new Point(341, 159);
-            suggestLabel.Name = "suggestLabel";
-            suggestLabel.Size = new Size(283, 23);
-            suggestLabel.TabIndex = 12;
-            suggestLabel.Text = "Opérations suggérés :";
-            // 
-            // priorityLabel
-            // 
-            priorityLabel.AutoSize = true;
-            priorityLabel.Font = new Font("OCR A Extended", 13.8F);
-            priorityLabel.Location = new Point(440, 23);
-            priorityLabel.Name = "priorityLabel";
-            priorityLabel.Size = new Size(122, 24);
-            priorityLabel.TabIndex = 13;
-            priorityLabel.Text = "Priorité";
-            // 
-            // priorityCB
-            // 
-            priorityCB.FormattingEnabled = true;
-            priorityCB.Location = new Point(597, 21);
-            priorityCB.Name = "priorityCB";
-            priorityCB.Size = new Size(151, 32);
-            priorityCB.TabIndex = 14;
-            // 
-            // toothCB
-            // 
-            toothCB.FormattingEnabled = true;
-            toothCB.Location = new Point(344, 140);
-            toothCB.Name = "toothCB";
-            toothCB.Size = new Size(289, 32);
-            toothCB.TabIndex = 16;
-            // 
-            // operationCB
-            // 
-            operationCB.FormattingEnabled = true;
-            operationCB.Location = new Point(344, 227);
-            operationCB.Name = "operationCB";
-            operationCB.Size = new Size(289, 32);
-            operationCB.TabIndex = 17;
-            // 
             // DisplayPatientControl
             // 
             AutoScaleDimensions = new SizeF(14F, 24F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(222, 226, 230);
             Controls.Add(tabControl);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Controls.Add(fullNameTB);
+            Controls.Add(birthdayLabelText);
+            Controls.Add(birthdayLabel);
+            Controls.Add(fullNameLabel);
             Font = new Font("OCR A Extended", 13.8F);
             Margin = new Padding(5, 4, 5, 4);
             Name = "DisplayPatientControl";
@@ -343,9 +343,9 @@
 
         #endregion
 
-        private Label fullNameTB;
-        private Label label1;
-        private Label label2;
+        private Label fullNameLabel;
+        private Label birthdayLabel;
+        private Label birthdayLabelText;
         private TabControl tabControl;
         private TabPage operationsPage;
         private TabPage teethStatePage;

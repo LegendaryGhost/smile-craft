@@ -18,6 +18,7 @@ namespace smile_craft.Components
         {
             InitializeComponent();
             PatientsGridView = patientsGridView;
+            patientsGridView.AutoGenerateColumns = false;
         }
     }
 }

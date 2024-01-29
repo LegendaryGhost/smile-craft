@@ -115,5 +115,10 @@ namespace smile_craft
         {
             GetPatientsGridView().DataSource = patients;
         }
+
+        public void DisplaySinglePatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -75,7 +75,7 @@ INSERT INTO price VALUES
     (4, 3, 23000),
     (4, 4, 25000);
 
-INSERT INTO patient(fristname, lastname, birthday) VALUES
+INSERT INTO patient(firstname, lastname, birthday) VALUES
     ('John', 'Doe', '1990-01-01'), 
     ('Jane', 'Smith', '1992-02-02'), 
     ('Bob', 'Johnson', '1994-03-03'),

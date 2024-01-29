@@ -16,5 +16,6 @@ namespace smile_craft.Views
         DateTime? GetBirthday();
         public void SetPatientsDataSource(BindingList<PatientSummary> patients);
         public DataGridView GetPatientsGridView();
+        public void DisplaySinglePatient(Patient patient);
     }
 }

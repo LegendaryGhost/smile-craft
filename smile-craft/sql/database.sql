@@ -4,7 +4,7 @@ CREATE DATABASE smilecraft;
 
 CREATE TABLE patient(
    id_patient SERIAL,
-   fristname VARCHAR(50)  NOT NULL,
+   firstname VARCHAR(50)  NOT NULL,
    lastname VARCHAR(50)  NOT NULL,
    birthday DATE,
    PRIMARY KEY(id_patient)

@@ -41,6 +41,7 @@
             patientsPB = new PictureBox();
             patientsControl = new Components.PatientsControl();
             addPatientControl = new Components.AddPatientControl();
+            displayPatientControl = new Views.Components.DisplayPatientControl();
             controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)minimizePictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)closePictureBox).BeginInit();
@@ -199,6 +200,17 @@
             addPatientControl.Size = new Size(1223, 699);
             addPatientControl.TabIndex = 7;
             // 
+            // displayPatientControl
+            // 
+            displayPatientControl.BackColor = Color.FromArgb(222, 226, 230);
+            displayPatientControl.Dock = DockStyle.Fill;
+            displayPatientControl.Font = new Font("OCR A Extended", 13.8F);
+            displayPatientControl.Location = new Point(0, 0);
+            displayPatientControl.Margin = new Padding(5, 4, 5, 4);
+            displayPatientControl.Name = "displayPatientControl";
+            displayPatientControl.Size = new Size(1223, 699);
+            displayPatientControl.TabIndex = 8;
+            // 
             // Home
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -210,6 +222,7 @@
             Controls.Add(sidePanel);
             Controls.Add(controlPanel);
             Controls.Add(addPatientControl);
+            Controls.Add(displayPatientControl);
             FormBorderStyle = FormBorderStyle.None;
             MaximizeBox = false;
             MdiChildrenMinimizedAnchorBottom = false;
@@ -243,5 +256,6 @@
         private PictureBox addPatientPB;
         private Components.PatientsControl patientsControl;
         private Components.AddPatientControl addPatientControl;
+        private Views.Components.DisplayPatientControl displayPatientControl;
     }
 }
