@@ -121,10 +121,10 @@ The objective of this application is to enable a dental clinic to manage the den
 
    d. **Operation Suggestions**
 
-      - [ ] Suggestion of a list of operations based on a specified budget.
-      - [ ] Option to choose between two priorities:
-        - [ ] Aesthetics priority: Front teeth (canines and incisors) will be prioritized.
-        - [ ] Health priority: Molars and premolars will be prioritized.
+      - [x] Suggestion of a list of operations based on a specified budget.
+      - [x] Option to choose between two priorities:
+        - [x] Aesthetics priority: Front teeth (canines and incisors) will be prioritized.
+        - [x] Health priority: Molars and premolars will be prioritized.
 
    e. **Calculation of Operation Costs**
 

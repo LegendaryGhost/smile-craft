@@ -14,19 +14,19 @@ namespace smile_craft.Utils
         public static (List<Perform>, int) Suggest(SmilecraftContext context, int patientId, int amount, int priority)
         {
             List<Perform> operations = GetAllPossibleOperations(context, patientId);
-            /*switch(priority)
+            switch(priority)
             {
                 case 1:
-                    operations = OrderByAesthetic(patientId);
+                    operations = OrderByAesthetic(operations);
                     break;
 
                 case 2:
-                    operations = OrderByHealth(patientId);
+                    operations = OrderByHealth(operations);
                     break;
             }
 
             // Calculate the remaining amount
-            decimal remainingAmount = amount;
+            /*int remainingAmount = amount;
             foreach (var operation in operations)
             {
                 remainingAmount -= operation.Cost;
@@ -35,6 +35,57 @@ namespace smile_craft.Utils
             return (operations, remainingAmount);*/
 
             return (operations, (int)1000.0);
+        }
+
+        private static List<Perform> OrderByAesthetic(List<Perform> operations)
+        {
+            var categoriesOrder = new Dictionary<string, int>
+            {
+                {"Incisor", 1},
+                {"Canine", 2},
+                {"Premolar", 3},
+                {"Molar", 4}
+            };
+
+            var operationsOrder = new Dictionary<int, int>
+            {
+                {3, 1},
+                {4, 2},
+                {2, 3},
+                {1, 4}
+            };
+
+            return operations
+                .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
+                .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
+                .ThenBy(op => op.CurrentMark ?? 0)
+                .ThenBy(op => op.IdTooth)
+                .ToList();
+        }
+        private static List<Perform> OrderByHealth(List<Perform> operations)
+        {
+            var categoriesOrder = new Dictionary<string, int>
+            {
+                {"Molar", 1},
+                {"Premolar", 2},
+                {"Canine", 3},
+                {"Incisor", 4}
+            };
+
+            var operationsOrder = new Dictionary<int, int>
+            {
+                {3, 1},
+                {4, 2},
+                {2, 3},
+                {1, 4}
+            };
+
+            return operations
+                .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
+                .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
+                .ThenBy(op => op.CurrentMark ?? 0)
+                .ThenBy(op => op.IdTooth)
+                .ToList();
         }
 
         private static List<Perform> GetAllPossibleOperations(SmilecraftContext context, int patientId)
@@ -47,6 +98,7 @@ namespace smile_craft.Utils
                 ];
             List<Operation> operations = [.. context.Operations];
             List<Price> prices = [.. context.Prices];
+            List<Category> categories = [.. context.Categories];
             List<Perform> performs = [];
             int idOperation = 0;
             int mark;
@@ -84,7 +136,8 @@ namespace smile_craft.Utils
                                 (
                                     p => p.IdCategory == state.IdToothNavigation.IdCategory && p.IdOperation == idOperation
                                 )?.Price1,
-                            OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name
+                            OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name,
+                            CategoryName = categories.Find(ca => ca.IdCategory == state.IdToothNavigation.IdCategory)?.Designation
                         }
                     );
 
@@ -104,7 +157,8 @@ namespace smile_craft.Utils
                                     (
                                         p => p.IdCategory == state.IdToothNavigation.IdCategory && p.IdOperation == idOperation
                                     )?.Price1,
-                                OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name
+                                OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name,
+                                CategoryName = categories.Find(ca => ca.IdCategory == state.IdToothNavigation.IdCategory)?.Designation
                             }
                         );
                     }

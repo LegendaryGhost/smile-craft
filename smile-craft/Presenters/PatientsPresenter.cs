@@ -14,6 +14,7 @@ namespace smile_craft.Presenter
         private readonly IPatientsView _patientsView;
         private readonly DataGridView _patientsDataGrid;
         private readonly DataGridView _teethStateDataGrid;
+        private readonly int _minimumOperationPrice;
 
         public PatientsPresenter(SmilecraftContext context, IPatientsView patientsView)
         {
@@ -22,6 +23,7 @@ namespace smile_craft.Presenter
             _patientsView = patientsView;
             _patientsDataGrid = patientsView.GetPatientsDataGrid();
             _teethStateDataGrid = patientsView.GetPatientTeethStateDataGrid();
+            _minimumOperationPrice = context.Prices.Min(p => p.Price1);
             SetUpPatientsDataGrid();
             SetUpTeethStateDataGrid();
             SeUpSuggestedOperationsDataGrid();
@@ -33,6 +35,12 @@ namespace smile_craft.Presenter
 
         public void SuggestOperations(int? patientId, int amount, int priorityId)
         {
+            if (amount < _minimumOperationPrice)
+            {
+                MessageBox.Show("Le montant saisi est insuffisant pour payer une opération");
+                return;
+            }
+
             (List<Perform> suggestedOperations, decimal restAmout) = OperationsSuggester.Suggest
             (
                 _context,
@@ -337,6 +345,12 @@ namespace smile_craft.Presenter
                 DataPropertyName = "IdTooth"
             };
 
+            DataGridViewTextBoxColumn categoryColumn = new()
+            {
+                Name = "Catégorie",
+                DataPropertyName = "CategoryName"
+            };
+
             DataGridViewTextBoxColumn noteColumn = new()
             {
                 Name = "Note actuelle",
@@ -357,6 +371,7 @@ namespace smile_craft.Presenter
             DataGridView suggestionsGridView = _patientsView.GetSuggestedOperationsDataGrid();
 
             suggestionsGridView.Columns.Add(idColumn);
+            suggestionsGridView.Columns.Add(categoryColumn);
             suggestionsGridView.Columns.Add(noteColumn);
             suggestionsGridView.Columns.Add(operationColumn);
             suggestionsGridView.Columns.Add(priceColumn);

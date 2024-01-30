@@ -9,6 +9,7 @@ namespace smile_craft.Models
     public partial class Perform
     {
         public string? OperationName { get; set; }
+        public string? CategoryName { get; set; }
         public int? CurrentMark { get; set; }
         private int? _price;
         public int? Price
@@ -21,7 +22,5 @@ namespace smile_craft.Models
             }
         }
         public string? PriceString { get; set; }
-
-
     }
 }
