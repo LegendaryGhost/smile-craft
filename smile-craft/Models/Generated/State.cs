@@ -9,9 +9,9 @@ public partial class State
 
     public int IdTooth { get; set; }
 
-    public int? IdMark { get; set; }
+    public int IdMark { get; set; }
 
-    public virtual Mark? IdMarkNavigation { get; set; }
+    public virtual Mark IdMarkNavigation { get; set; } = null!;
 
     public virtual Patient IdPatientNavigation { get; set; } = null!;
 

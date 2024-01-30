@@ -153,6 +153,7 @@ public partial class SmilecraftContext : DbContext
 
             entity.HasOne(d => d.IdMarkNavigation).WithMany(p => p.States)
                 .HasForeignKey(d => d.IdMark)
+                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("state_id_mark_fkey");
 
             entity.HasOne(d => d.IdPatientNavigation).WithMany(p => p.States)

@@ -19,6 +19,7 @@ namespace smile_craft.Views.Components
         public DisplayPatientControl()
         {
             InitializeComponent();
+            teethStateDGV.AutoGenerateColumns = false;
         }
 
         public Patient? Patient

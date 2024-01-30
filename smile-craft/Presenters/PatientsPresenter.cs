@@ -145,6 +145,7 @@ namespace smile_craft.Presenter
         {
             var operations = _context.Performs
                 .Where(p => p.IdPatient == patientId)
+                .OrderByDescending(o => o.DateOperation)
                 .Join(_context.Teeth,
                     p => p.IdTooth,
                     t => t.IdTooth,
@@ -160,8 +161,8 @@ namespace smile_craft.Presenter
                         opc.Operation.IdPerform,
                         $"{opc.Category.Designation} {opc.Tooth.IdTooth}",
                         o.Name,
-                        opc.Operation.DateOperation)
-                ).ToList();
+                        opc.Operation.DateOperation))
+                .ToList();
 
             var operationsBindingList = new BindingList<OperationSummary>(operations);
             _patientsView.GetPatientOperationsDataGrid().DataSource = operationsBindingList;
@@ -188,7 +189,7 @@ namespace smile_craft.Presenter
                 UseColumnTextForButtonValue = true
             };
 
-            _teethStateDataGrid.CellClick += ModifyMark;
+            /*_teethStateDataGrid.CellClick += ModifyMark;*/
             _teethStateDataGrid.Columns.Add(idColumn);
             _teethStateDataGrid.Columns.Add(noteColumn);
             _teethStateDataGrid.Columns.Add(btnNoter);
@@ -198,14 +199,17 @@ namespace smile_craft.Presenter
         {
             var teethStateSummaries = _context.States
                                     .Where(p => p.IdPatient == patientId)
-                                    .Include(s => s.Mark)
-                                    .Select(s => new TeethStateSummary
+                                    .OrderBy(s => s.IdTooth)
+                                    .Include(s => s.IdMarkNavigation)
+                                    .Select(s => new ToothStateSummary
                                     (
                                         s.IdTooth,
-                                        s.Mark.Mark
+                                        s.IdPatient,
+                                        s.IdMark,
+                                        s.IdMarkNavigation.Mark1
                                     ))
                                     .ToList();
-            BindingList<TeethStateSummary> teethStateList = new BindingList<TeethStateSummary>(teethStateSummaries);
+            BindingList<ToothStateSummary> teethStateList = new BindingList<ToothStateSummary>(teethStateSummaries);
             _teethStateDataGrid.DataSource = teethStateList;
         }
     }
