@@ -3,6 +3,7 @@ using smile_craft.Data;
 using smile_craft.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,9 @@ namespace smile_craft.Utils
 {
     public static class OperationsSuggester
     {
-        public static (List<Perform>, int, int) Suggest(SmilecraftContext context, int patientId, int amount, int priority)
+        public static (List<PerformSummary>, int, int) Suggest(SmilecraftContext context, int patientId, int amount, int priority)
         {
-            List<Perform> allOperations = GetAllPossibleOperations(context, patientId),
+            List<PerformSummary> allOperations = GetAllPossibleOperations(context, patientId),
                 suggestedOperations = [];
             switch(priority)
             {
@@ -40,7 +41,7 @@ namespace smile_craft.Utils
             return (suggestedOperations, remainingAmount, amount - remainingAmount);
         }
 
-        private static List<Perform> OrderByAesthetic(List<Perform> operations)
+        private static List<PerformSummary> OrderByAesthetic(List<PerformSummary> operations)
         {
             var categoriesOrder = new Dictionary<string, int>
             {
@@ -68,7 +69,7 @@ namespace smile_craft.Utils
 ,
             ];
         }
-        private static List<Perform> OrderByHealth(List<Perform> operations)
+        private static List<PerformSummary> OrderByHealth(List<PerformSummary> operations)
         {
             var categoriesOrder = new Dictionary<string, int>
             {
@@ -96,22 +97,23 @@ namespace smile_craft.Utils
             ];
         }
 
-        private static List<Perform> GetAllPossibleOperations(SmilecraftContext context, int patientId)
+        private static List<PerformSummary> GetAllPossibleOperations(SmilecraftContext context, int patientId)
         {
             List<State> teethStates =
-                [.. 
-                    context.States.Include(s => s.IdMarkNavigation)
-                        .Include(s => s.IdToothNavigation)
-                        .Where(s => s.IdPatient == patientId)
-                ];
+            [.. 
+                context.States.AsNoTracking().Include(s => s.IdMarkNavigation)
+                    .Include(s => s.IdToothNavigation)
+                    .Where(s => s.IdPatient == patientId)
+            ];
             List<Operation> operations = [.. context.Operations];
             List<Price> prices = [.. context.Prices];
             List<Category> categories = [.. context.Categories];
-            List<Perform> performs = [];
+            List<PerformSummary> performs = [];
             int idOperation = 0;
             int mark;
             foreach (State state in teethStates)
             {
+                Debug.WriteLine(state.IdPatient + " : dent - " + state.IdTooth + ", note - " + state.IdMarkNavigation.Mark1);
                 mark = state.IdMarkNavigation.Mark1;
                 if (mark == 0)
                 {
@@ -134,7 +136,7 @@ namespace smile_craft.Utils
                 {
                     performs.Add
                     (
-                        new Perform()
+                        new PerformSummary()
                         {
                             IdPatient = patientId,
                             IdTooth = state.IdTooth,
@@ -155,7 +157,7 @@ namespace smile_craft.Utils
                         idOperation = 4;
                         performs.Add
                         (
-                            new Perform()
+                            new PerformSummary()
                             {
                                 IdPatient = patientId,
                                 IdTooth = state.IdTooth,
@@ -175,6 +177,5 @@ namespace smile_craft.Utils
 
             return performs;
         }
-
     }
 }

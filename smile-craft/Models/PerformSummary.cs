@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace smile_craft.Models
 {
-    public partial class Perform
+    public class PerformSummary: Perform
     {
         public string? OperationName { get; set; }
         public string? CategoryName { get; set; }
@@ -22,5 +22,15 @@ namespace smile_craft.Models
             }
         }
         public string? PriceString { get; set; }
+
+        public Perform ToPerform()
+        {
+            return new()
+            {
+                IdPatient = IdPatient,
+                IdTooth = IdTooth,
+                IdOperation = IdOperation
+            };
+        }
     }
 }

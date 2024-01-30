@@ -15,7 +15,7 @@ namespace smile_craft.Presenter
         private readonly DataGridView _patientsDataGrid;
         private readonly DataGridView _teethStateDataGrid;
         private readonly int _minimumOperationPrice;
-        private List<Perform> _suggestedOperations;
+        private List<PerformSummary> _suggestedOperations;
 
         public PatientsPresenter(SmilecraftContext context, IPatientsView patientsView)
         {
@@ -56,9 +56,9 @@ namespace smile_craft.Presenter
             _patientsView.DisplaySuggestionTotal(totalCost);
         }
 
-        private void DisplaySuggestedOperations(List<Perform> suggestedOperations)
+        private void DisplaySuggestedOperations(List<PerformSummary> suggestedOperations)
         {
-            BindingList<Perform> bindingList = new(suggestedOperations);
+            BindingList<PerformSummary> bindingList = new(suggestedOperations);
             _patientsView.GetSuggestedOperationsDataGrid().DataSource = bindingList;
         }
 
@@ -245,7 +245,7 @@ namespace smile_craft.Presenter
         private void LoadAllPatients()
         {
             // Retrieve all the patients from the database and adds their summaries in the DataGridView
-            var patientSummaries = _context.Patients
+            var patientSummaries = _context.Patients.AsNoTracking()
                                     .Select(p => new PatientSummary
                                     (
                                         p.IdPatient,
@@ -282,7 +282,7 @@ namespace smile_craft.Presenter
 
         private void LoadPatientOperations(int patientId)
         {
-            var operations = _context.Performs
+            var operations = _context.Performs.AsNoTracking()
                 .Where(p => p.IdPatient == patientId)
                 .OrderByDescending(o => o.IdPerform)
                 .Join(_context.Teeth,
@@ -377,7 +377,7 @@ namespace smile_craft.Presenter
 
         private void LoadPatientTeethState(int patientId)
         {
-            var teethStateSummaries = _context.States
+            var teethStateSummaries = _context.States.AsNoTracking()
                                     .Where(p => p.IdPatient == patientId)
                                     .OrderBy(s => s.IdTooth)
                                     .Include(s => s.IdMarkNavigation)
@@ -496,9 +496,9 @@ namespace smile_craft.Presenter
                 MessageBox.Show("Aucune suggestion à confirmer");
             }
 
-            foreach(Perform perform in _suggestedOperations)
+            foreach(PerformSummary perform in _suggestedOperations)
             {
-                _context.Performs.Add(perform);
+                _context.Performs.Add(perform.ToPerform());
             }
             _context.SaveChanges();
 
