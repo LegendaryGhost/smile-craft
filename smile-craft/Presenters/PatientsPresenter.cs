@@ -15,10 +15,12 @@ namespace smile_craft.Presenter
         private readonly DataGridView _patientsDataGrid;
         private readonly DataGridView _teethStateDataGrid;
         private readonly int _minimumOperationPrice;
+        private List<Perform> _suggestedOperations;
 
         public PatientsPresenter(SmilecraftContext context, IPatientsView patientsView)
         {
             _patientList = [];
+            _suggestedOperations = [];
             _context = context;
             _patientsView = patientsView;
             _patientsDataGrid = patientsView.GetPatientsDataGrid();
@@ -26,7 +28,7 @@ namespace smile_craft.Presenter
             _minimumOperationPrice = context.Prices.Min(p => p.Price1);
             SetUpPatientsDataGrid();
             SetUpTeethStateDataGrid();
-            SeUpSuggestedOperationsDataGrid();
+            SetUpSuggestedOperationsDataGrid();
             FillTeethCB();
             FillOperationsCB();
             FillPriorityCB();
@@ -41,7 +43,7 @@ namespace smile_craft.Presenter
                 return;
             }
 
-            (List<Perform> suggestedOperations, decimal restAmout) = OperationsSuggester.Suggest
+            (_suggestedOperations, int restAmout, int totalCost) = OperationsSuggester.Suggest
             (
                 _context,
                 patientId ?? 0,
@@ -49,19 +51,15 @@ namespace smile_craft.Presenter
                 priorityId
             );
 
-            DisplaySuggestedOperations(suggestedOperations);
-            DisplayRestSuggestionAmount(restAmout);
+            DisplaySuggestedOperations(_suggestedOperations);
+            _patientsView.DisplayRestSuggestionAmount(restAmout);
+            _patientsView.DisplaySuggestionTotal(totalCost);
         }
 
         private void DisplaySuggestedOperations(List<Perform> suggestedOperations)
         {
             BindingList<Perform> bindingList = new(suggestedOperations);
             _patientsView.GetSuggestedOperationsDataGrid().DataSource = bindingList;
-        }
-
-        private void DisplayRestSuggestionAmount(decimal restAmout)
-        {
-            _patientsView.DisplayRestSuggestionAmount(restAmout);
         }
 
 
@@ -337,7 +335,7 @@ namespace smile_craft.Presenter
             _teethStateDataGrid.Columns.Add(btnNoter);
         }
 
-        private void SeUpSuggestedOperationsDataGrid()
+        private void SetUpSuggestedOperationsDataGrid()
         {
             DataGridViewTextBoxColumn idColumn = new()
             {
@@ -489,5 +487,30 @@ namespace smile_craft.Presenter
             comboBox.SelectedItem = data.FirstOrDefault(m => m.Key == markId);
         }
 
+        public void ConfirmSuggestions(int? patientId)
+        {
+            bool suggestionExists = _suggestedOperations.Count != 0;
+
+            if(!suggestionExists)
+            {
+                MessageBox.Show("Aucune suggestion à confirmer");
+            }
+
+            foreach(Perform perform in _suggestedOperations)
+            {
+                _context.Performs.Add(perform);
+            }
+            _context.SaveChanges();
+
+            _suggestedOperations = [];
+            DisplaySuggestedOperations(_suggestedOperations);
+            _patientsView.DisplayRestSuggestionAmount(0);
+            _patientsView.DisplaySuggestionTotal(0);
+
+            LoadPatientOperations(patientId ?? 1);
+            LoadPatientTeethState(patientId ?? 1);
+
+            MessageBox.Show("Opération(s) suggérées effectuées");
+        }
     }
 }

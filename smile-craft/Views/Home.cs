@@ -20,6 +20,7 @@ namespace smile_craft
         public event Action AddPatientEvent;
         public event Action<int?, int, int> AddPatientOperationEvent;
         public event Action<int?, int, int> SuggestOperationEvent;
+        public event Action<int?> ConfirmSuggestionsEvent;
 
         public Home()
         {
@@ -31,10 +32,20 @@ namespace smile_craft
             // Subscribe the event to the patientsPresenter
             AddPatientEvent += patientsPresenter.AddPatient;
             addPatientControl.AddPatientEvent += AddPatient;
+            
             AddPatientOperationEvent += patientsPresenter.AddPatientOperation;
             displayPatientControl.AddPatientOperationEvent += AddPatientOperation;
+            
             SuggestOperationEvent += patientsPresenter.SuggestOperations;
             displayPatientControl.SuggestOperationEvent += SuggestOperation;
+
+            ConfirmSuggestionsEvent += patientsPresenter.ConfirmSuggestions;
+            displayPatientControl.ConfirmSuggestionsEvent += ConfirmSuggestions;
+        }
+
+        private void ConfirmSuggestions()
+        {
+            ConfirmSuggestionsEvent.Invoke(displayPatientControl.Patient?.IdPatient);
         }
 
         private void SuggestOperation()
@@ -177,6 +188,11 @@ namespace smile_craft
         public void DisplayRestSuggestionAmount(decimal restAmout)
         {
             displayPatientControl.restAmountLabel.Text = restAmout.ToString();
+        }
+
+        public void DisplaySuggestionTotal(int totalCost)
+        {
+            displayPatientControl.costAmountLabel.Text = totalCost.ToString();
         }
     }
 }

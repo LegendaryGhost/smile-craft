@@ -8,6 +8,7 @@ namespace smile_craft.Views
         event Action AddPatientEvent;
         event Action<int?, int, int> AddPatientOperationEvent;
         event Action<int?, int, int> SuggestOperationEvent;
+        event Action<int?> ConfirmSuggestionsEvent;
         string GetFirstName();
         string GetLastName();
         DateTime? GetBirthday();
@@ -21,5 +22,6 @@ namespace smile_craft.Views
         public ComboBox GetOperationsCB();
         public ComboBox GetPrioritiesCB();
         public void DisplayRestSuggestionAmount(decimal restAmout);
+        public void DisplaySuggestionTotal(int totalCost);
     }
 }

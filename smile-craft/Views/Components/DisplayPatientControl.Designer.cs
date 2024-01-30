@@ -47,13 +47,16 @@
             opeationLabel = new Label();
             toothLabel = new Label();
             dynamicGenerationPage = new TabPage();
+            costAmountLabel = new Label();
             restAmountLabel = new Label();
+            costTextLabel = new Label();
             restTextLabel = new Label();
             prioritiesCB = new ComboBox();
             priorityLabel = new Label();
             suggestLabel = new Label();
             validateBtn = new Button();
             generatedOperationsDGV = new DataGridView();
+            label1 = new Label();
             generateBtn = new Button();
             label2 = new Label();
             currencyLabel = new Label();
@@ -270,13 +273,16 @@
             // 
             // dynamicGenerationPage
             // 
+            dynamicGenerationPage.Controls.Add(costAmountLabel);
             dynamicGenerationPage.Controls.Add(restAmountLabel);
+            dynamicGenerationPage.Controls.Add(costTextLabel);
             dynamicGenerationPage.Controls.Add(restTextLabel);
             dynamicGenerationPage.Controls.Add(prioritiesCB);
             dynamicGenerationPage.Controls.Add(priorityLabel);
             dynamicGenerationPage.Controls.Add(suggestLabel);
             dynamicGenerationPage.Controls.Add(validateBtn);
             dynamicGenerationPage.Controls.Add(generatedOperationsDGV);
+            dynamicGenerationPage.Controls.Add(label1);
             dynamicGenerationPage.Controls.Add(generateBtn);
             dynamicGenerationPage.Controls.Add(label2);
             dynamicGenerationPage.Controls.Add(currencyLabel);
@@ -287,24 +293,44 @@
             dynamicGenerationPage.Name = "dynamicGenerationPage";
             dynamicGenerationPage.Size = new Size(965, 501);
             dynamicGenerationPage.TabIndex = 3;
-            dynamicGenerationPage.Text = "Génération dynamique";
+            dynamicGenerationPage.Text = "Suggestion intelligente";
             dynamicGenerationPage.UseVisualStyleBackColor = true;
+            // 
+            // costAmountLabel
+            // 
+            costAmountLabel.AutoSize = true;
+            costAmountLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            costAmountLabel.Location = new Point(204, 158);
+            costAmountLabel.Name = "costAmountLabel";
+            costAmountLabel.Size = new Size(23, 23);
+            costAmountLabel.TabIndex = 16;
+            costAmountLabel.Text = "0";
             // 
             // restAmountLabel
             // 
             restAmountLabel.AutoSize = true;
             restAmountLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            restAmountLabel.Location = new Point(694, 84);
+            restAmountLabel.Location = new Point(733, 157);
             restAmountLabel.Name = "restAmountLabel";
             restAmountLabel.Size = new Size(23, 23);
             restAmountLabel.TabIndex = 16;
             restAmountLabel.Text = "0";
             // 
+            // costTextLabel
+            // 
+            costTextLabel.AutoSize = true;
+            costTextLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            costTextLabel.Location = new Point(19, 158);
+            costTextLabel.Name = "costTextLabel";
+            costTextLabel.Size = new Size(166, 23);
+            costTextLabel.TabIndex = 15;
+            costTextLabel.Text = "Prix total :";
+            // 
             // restTextLabel
             // 
             restTextLabel.AutoSize = true;
             restTextLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            restTextLabel.Location = new Point(574, 84);
+            restTextLabel.Location = new Point(613, 157);
             restTextLabel.Name = "restTextLabel";
             restTextLabel.Size = new Size(101, 23);
             restTextLabel.TabIndex = 15;
@@ -332,11 +358,11 @@
             // 
             suggestLabel.AutoSize = true;
             suggestLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            suggestLabel.Location = new Point(365, 156);
+            suggestLabel.Location = new Point(347, 203);
             suggestLabel.Name = "suggestLabel";
-            suggestLabel.Size = new Size(283, 23);
+            suggestLabel.Size = new Size(296, 23);
             suggestLabel.TabIndex = 12;
-            suggestLabel.Text = "Opérations suggérés :";
+            suggestLabel.Text = "Opérations suggérées :";
             // 
             // validateBtn
             // 
@@ -352,6 +378,7 @@
             validateBtn.TabIndex = 11;
             validateBtn.Text = "Valider";
             validateBtn.UseVisualStyleBackColor = false;
+            validateBtn.Click += TriggerConfirmSuggestionsEvent;
             // 
             // generatedOperationsDGV
             // 
@@ -360,12 +387,22 @@
             generatedOperationsDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             generatedOperationsDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             generatedOperationsDGV.Dock = DockStyle.Bottom;
-            generatedOperationsDGV.Location = new Point(0, 203);
+            generatedOperationsDGV.Location = new Point(0, 240);
             generatedOperationsDGV.Name = "generatedOperationsDGV";
             generatedOperationsDGV.ReadOnly = true;
             generatedOperationsDGV.RowHeadersWidth = 51;
-            generatedOperationsDGV.Size = new Size(965, 298);
+            generatedOperationsDGV.Size = new Size(965, 261);
             generatedOperationsDGV.TabIndex = 10;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("OCR A Extended", 13.8F);
+            label1.Location = new Point(374, 158);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 24);
+            label1.TabIndex = 4;
+            label1.Text = "Ar";
             // 
             // generateBtn
             // 
@@ -379,7 +416,7 @@
             generateBtn.Padding = new Padding(5, 0, 0, 0);
             generateBtn.Size = new Size(240, 45);
             generateBtn.TabIndex = 9;
-            generateBtn.Text = "Générer";
+            generateBtn.Text = "Suggérer";
             generateBtn.UseVisualStyleBackColor = false;
             generateBtn.Click += TriggerSuggestEvent;
             // 
@@ -387,7 +424,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("OCR A Extended", 13.8F);
-            label2.Location = new Point(864, 84);
+            label2.Location = new Point(903, 157);
             label2.Name = "label2";
             label2.Size = new Size(38, 24);
             label2.TabIndex = 4;
@@ -482,5 +519,8 @@
         private Label label2;
         public Label restAmountLabel;
         public NumericUpDown amountNUD;
+        public Label costAmountLabel;
+        private Label costTextLabel;
+        private Label label1;
     }
 }

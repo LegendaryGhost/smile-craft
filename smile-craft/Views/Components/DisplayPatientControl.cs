@@ -7,6 +7,7 @@ namespace smile_craft.Views.Components
     {
         public delegate void AddPatientOperationHandler(object sender, EventArgs e);
         public event AddPatientOperationHandler? AddPatientOperationEvent;
+        public Action? ConfirmSuggestionsEvent { get; internal set; }
         public Action? SuggestOperationEvent { get; internal set; }
 
 
@@ -38,6 +39,11 @@ namespace smile_craft.Views.Components
         private void TriggerSuggestEvent(object sender, EventArgs e)
         {
             SuggestOperationEvent?.Invoke();
+        }
+
+        private void TriggerConfirmSuggestionsEvent(object sender, EventArgs e)
+        {
+            ConfirmSuggestionsEvent?.Invoke();
         }
     }
 

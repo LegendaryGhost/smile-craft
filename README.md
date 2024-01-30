@@ -128,7 +128,7 @@ The objective of this application is to enable a dental clinic to manage the den
 
    e. **Calculation of Operation Costs**
 
-      - [ ] Operation costs depend on the type of tooth (incisor, canine, premolar, molar).
+      - [x] Operation costs depend on the type of tooth (incisor, canine, premolar, molar).
       - [ ] Tariffs will be configurable.
 
 4. **Security**

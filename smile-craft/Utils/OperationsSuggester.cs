@@ -11,30 +11,33 @@ namespace smile_craft.Utils
 {
     public static class OperationsSuggester
     {
-        public static (List<Perform>, int) Suggest(SmilecraftContext context, int patientId, int amount, int priority)
+        public static (List<Perform>, int, int) Suggest(SmilecraftContext context, int patientId, int amount, int priority)
         {
-            List<Perform> operations = GetAllPossibleOperations(context, patientId);
+            List<Perform> allOperations = GetAllPossibleOperations(context, patientId),
+                suggestedOperations = [];
             switch(priority)
             {
                 case 1:
-                    operations = OrderByAesthetic(operations);
+                    allOperations = OrderByAesthetic(allOperations);
                     break;
 
                 case 2:
-                    operations = OrderByHealth(operations);
+                    allOperations = OrderByHealth(allOperations);
                     break;
             }
 
             // Calculate the remaining amount
-            /*int remainingAmount = amount;
-            foreach (var operation in operations)
+            int remainingAmount = amount;
+            foreach (var operation in allOperations)
             {
-                remainingAmount -= operation.Cost;
+                if (remainingAmount >= operation.Price)
+                {
+                    remainingAmount -= operation.Price ?? 0;
+                    suggestedOperations.Add(operation);
+                }
             }
 
-            return (operations, remainingAmount);*/
-
-            return (operations, (int)1000.0);
+            return (suggestedOperations, remainingAmount, amount - remainingAmount);
         }
 
         private static List<Perform> OrderByAesthetic(List<Perform> operations)
@@ -55,12 +58,15 @@ namespace smile_craft.Utils
                 {1, 4}
             };
 
-            return operations
-                .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
-                .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
-                .ThenBy(op => op.CurrentMark ?? 0)
-                .ThenBy(op => op.IdTooth)
-                .ToList();
+            return
+            [
+                .. operations
+                                .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
+                                .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
+                                .ThenBy(op => op.CurrentMark ?? 0)
+                                .ThenBy(op => op.IdTooth)
+,
+            ];
         }
         private static List<Perform> OrderByHealth(List<Perform> operations)
         {
@@ -80,12 +86,14 @@ namespace smile_craft.Utils
                 {1, 4}
             };
 
-            return operations
-                .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
-                .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
-                .ThenBy(op => op.CurrentMark ?? 0)
-                .ThenBy(op => op.IdTooth)
-                .ToList();
+            return
+            [
+                .. operations
+                    .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
+                    .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
+                    .ThenBy(op => op.CurrentMark ?? 0)
+                    .ThenBy(op => op.IdTooth)
+            ];
         }
 
         private static List<Perform> GetAllPossibleOperations(SmilecraftContext context, int patientId)
