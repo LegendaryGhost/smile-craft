@@ -11,11 +11,9 @@ namespace smile_craft.Utils
 {
     public static class OperationsSuggester
     {
-        public static (List<Perform>, decimal) Suggest(List<State> teethStates, int patientId, decimal amount, int priority)
+        public static (List<Perform>, int) Suggest(SmilecraftContext context, int patientId, int amount, int priority)
         {
-            // Your logic to generate operations goes here
-            // Let's assume you have a method GenerateOperations that returns a list of operations
-            List<Perform> operations = GetAllPossibleOperations(teethStates, patientId);
+            List<Perform> operations = GetAllPossibleOperations(context, patientId);
             /*switch(priority)
             {
                 case 1:
@@ -36,71 +34,80 @@ namespace smile_craft.Utils
 
             return (operations, remainingAmount);*/
 
-            return (operations, (decimal)1000.0);
+            return (operations, (int)1000.0);
         }
 
-        private static List<Perform> GetAllPossibleOperations(List<State> teethStates, int idPatient)
+        private static List<Perform> GetAllPossibleOperations(SmilecraftContext context, int patientId)
         {
+            List<State> teethStates =
+                [.. 
+                    context.States.Include(s => s.IdMarkNavigation)
+                        .Include(s => s.IdToothNavigation)
+                        .Where(s => s.IdPatient == patientId)
+                ];
+            List<Operation> operations = [.. context.Operations];
+            List<Price> prices = [.. context.Prices];
             List<Perform> performs = [];
+            int idOperation = 0;
+            int mark;
             foreach (State state in teethStates)
             {
-                int mark = state.IdMarkNavigation.Mark1;
+                mark = state.IdMarkNavigation.Mark1;
                 if (mark == 0)
                 {
-                    performs.Add
-                    (
-                        new Perform()
-                        {
-                            IdPatient = idPatient,
-                            IdTooth = state.IdTooth,
-                            IdOperation = 4
-                        }
-                    );
+                    idOperation = 4;
                 }
                 else if(mark <= 3)
                 {
-                    performs.Add
-                    (
-                        new Perform()
-                        {
-                            IdPatient = idPatient,
-                            IdTooth = state.IdTooth,
-                            IdOperation = 3
-                        }
-                    );
-                    performs.Add
-                    (
-                        new Perform()
-                        {
-                            IdPatient = idPatient,
-                            IdTooth = state.IdTooth,
-                            IdOperation = 4
-                        }
-                    );
+                    idOperation = 3;
                 }
                 else if(mark <= 6)
                 {
-                    performs.Add
-                    (
-                        new Perform()
-                        {
-                            IdPatient = idPatient,
-                            IdTooth = state.IdTooth,
-                            IdOperation = 2
-                        }
-                    );
+                    idOperation = 2;
                 }
                 else if (mark <= 9)
+                {
+                    idOperation = 1;
+                }
+
+                if (mark < 10)
                 {
                     performs.Add
                     (
                         new Perform()
                         {
-                            IdPatient = idPatient,
+                            IdPatient = patientId,
                             IdTooth = state.IdTooth,
-                            IdOperation = 1
+                            IdOperation = idOperation,
+                            CurrentMark = mark,
+                            Price = prices.Find
+                                (
+                                    p => p.IdCategory == state.IdToothNavigation.IdCategory && p.IdOperation == idOperation
+                                )?.Price1,
+                            OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name
                         }
                     );
+
+                    // Adds the extra operation for replacement after removing it
+                    if (idOperation == 3)
+                    {
+                        idOperation = 4;
+                        performs.Add
+                        (
+                            new Perform()
+                            {
+                                IdPatient = patientId,
+                                IdTooth = state.IdTooth,
+                                IdOperation = idOperation,
+                                CurrentMark = mark,
+                                Price = prices.Find
+                                    (
+                                        p => p.IdCategory == state.IdToothNavigation.IdCategory && p.IdOperation == idOperation
+                                    )?.Price1,
+                                OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name
+                            }
+                        );
+                    }
                 }
             }
 

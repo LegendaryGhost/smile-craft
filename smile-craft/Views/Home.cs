@@ -19,6 +19,7 @@ namespace smile_craft
 
         public event Action AddPatientEvent;
         public event Action<int?, int, int> AddPatientOperationEvent;
+        public event Action<int?, int, int> SuggestOperationEvent;
 
         public Home()
         {
@@ -32,6 +33,16 @@ namespace smile_craft
             addPatientControl.AddPatientEvent += AddPatient;
             AddPatientOperationEvent += patientsPresenter.AddPatientOperation;
             displayPatientControl.AddPatientOperationEvent += AddPatientOperation;
+            SuggestOperationEvent += patientsPresenter.SuggestOperations;
+            displayPatientControl.SuggestOperationEvent += SuggestOperation;
+        }
+
+        private void SuggestOperation()
+        {
+            int? patientId = displayPatientControl.Patient?.IdPatient;
+            int amount = (int)displayPatientControl.amountNUD.Value;
+            int priorityId = (int?)displayPatientControl.prioritiesCB.SelectedValue ?? 1;
+            SuggestOperationEvent?.Invoke(patientId, amount, priorityId);
         }
 
         public string GetFirstName()
@@ -156,6 +167,16 @@ namespace smile_craft
         public ComboBox GetPrioritiesCB()
         {
             return displayPatientControl.prioritiesCB;
+        }
+
+        public DataGridView GetSuggestedOperationsDataGrid()
+        {
+            return displayPatientControl.generatedOperationsDGV;
+        }
+
+        public void DisplayRestSuggestionAmount(decimal restAmout)
+        {
+            displayPatientControl.restAmountLabel.Text = restAmout.ToString();
         }
     }
 }

@@ -7,16 +7,19 @@ namespace smile_craft.Views
     {
         event Action AddPatientEvent;
         event Action<int?, int, int> AddPatientOperationEvent;
+        event Action<int?, int, int> SuggestOperationEvent;
         string GetFirstName();
         string GetLastName();
         DateTime? GetBirthday();
         public void SetPatientsDataSource(BindingList<PatientSummary> patients);
-        public DataGridView GetPatientsDataGrid();
         public void DisplaySinglePatient(Patient patient);
+        public DataGridView GetPatientsDataGrid();
         public DataGridView GetPatientOperationsDataGrid();
         public DataGridView GetPatientTeethStateDataGrid();
+        public DataGridView GetSuggestedOperationsDataGrid();
         public ComboBox GetTeethCB();
         public ComboBox GetOperationsCB();
         public ComboBox GetPrioritiesCB();
+        public void DisplayRestSuggestionAmount(decimal restAmout);
     }
 }

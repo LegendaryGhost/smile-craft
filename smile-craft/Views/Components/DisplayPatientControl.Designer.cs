@@ -47,15 +47,18 @@
             opeationLabel = new Label();
             toothLabel = new Label();
             dynamicGenerationPage = new TabPage();
+            restAmountLabel = new Label();
+            restTextLabel = new Label();
             prioritiesCB = new ComboBox();
             priorityLabel = new Label();
             suggestLabel = new Label();
             validateBtn = new Button();
             generatedOperationsDGV = new DataGridView();
             generateBtn = new Button();
+            label2 = new Label();
             currencyLabel = new Label();
             amountLabel = new Label();
-            numericUpDown1 = new NumericUpDown();
+            amountNUD = new NumericUpDown();
             tabControl.SuspendLayout();
             operationsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)operationsDGV).BeginInit();
@@ -65,7 +68,7 @@
             newOperationPage.SuspendLayout();
             dynamicGenerationPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)generatedOperationsDGV).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)amountNUD).BeginInit();
             SuspendLayout();
             // 
             // fullNameLabel
@@ -153,6 +156,7 @@
             // 
             // teethStateDGV
             // 
+            teethStateDGV.AllowUserToAddRows = false;
             teethStateDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -266,15 +270,19 @@
             // 
             // dynamicGenerationPage
             // 
+            dynamicGenerationPage.Controls.Add(restAmountLabel);
+            dynamicGenerationPage.Controls.Add(restTextLabel);
             dynamicGenerationPage.Controls.Add(prioritiesCB);
             dynamicGenerationPage.Controls.Add(priorityLabel);
             dynamicGenerationPage.Controls.Add(suggestLabel);
             dynamicGenerationPage.Controls.Add(validateBtn);
             dynamicGenerationPage.Controls.Add(generatedOperationsDGV);
             dynamicGenerationPage.Controls.Add(generateBtn);
+            dynamicGenerationPage.Controls.Add(label2);
             dynamicGenerationPage.Controls.Add(currencyLabel);
             dynamicGenerationPage.Controls.Add(amountLabel);
-            dynamicGenerationPage.Controls.Add(numericUpDown1);
+            dynamicGenerationPage.Controls.Add(amountNUD);
+            dynamicGenerationPage.Font = new Font("Segoe UI", 9F);
             dynamicGenerationPage.Location = new Point(4, 33);
             dynamicGenerationPage.Name = "dynamicGenerationPage";
             dynamicGenerationPage.Size = new Size(965, 501);
@@ -282,19 +290,39 @@
             dynamicGenerationPage.Text = "Génération dynamique";
             dynamicGenerationPage.UseVisualStyleBackColor = true;
             // 
+            // restAmountLabel
+            // 
+            restAmountLabel.AutoSize = true;
+            restAmountLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            restAmountLabel.Location = new Point(694, 84);
+            restAmountLabel.Name = "restAmountLabel";
+            restAmountLabel.Size = new Size(23, 23);
+            restAmountLabel.TabIndex = 16;
+            restAmountLabel.Text = "0";
+            // 
+            // restTextLabel
+            // 
+            restTextLabel.AutoSize = true;
+            restTextLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            restTextLabel.Location = new Point(574, 84);
+            restTextLabel.Name = "restTextLabel";
+            restTextLabel.Size = new Size(101, 23);
+            restTextLabel.TabIndex = 15;
+            restTextLabel.Text = "Reste :";
+            // 
             // prioritiesCB
             // 
             prioritiesCB.FormattingEnabled = true;
-            prioritiesCB.Location = new Point(597, 21);
+            prioritiesCB.Location = new Point(551, 23);
             prioritiesCB.Name = "prioritiesCB";
-            prioritiesCB.Size = new Size(151, 32);
+            prioritiesCB.Size = new Size(151, 28);
             prioritiesCB.TabIndex = 14;
             // 
             // priorityLabel
             // 
             priorityLabel.AutoSize = true;
             priorityLabel.Font = new Font("OCR A Extended", 13.8F);
-            priorityLabel.Location = new Point(440, 23);
+            priorityLabel.Location = new Point(394, 25);
             priorityLabel.Name = "priorityLabel";
             priorityLabel.Size = new Size(122, 24);
             priorityLabel.TabIndex = 13;
@@ -304,7 +332,7 @@
             // 
             suggestLabel.AutoSize = true;
             suggestLabel.Font = new Font("NSimSun", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            suggestLabel.Location = new Point(341, 159);
+            suggestLabel.Location = new Point(365, 156);
             suggestLabel.Name = "suggestLabel";
             suggestLabel.Size = new Size(283, 23);
             suggestLabel.TabIndex = 12;
@@ -327,10 +355,14 @@
             // 
             // generatedOperationsDGV
             // 
+            generatedOperationsDGV.AllowUserToAddRows = false;
+            generatedOperationsDGV.AllowUserToDeleteRows = false;
+            generatedOperationsDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             generatedOperationsDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             generatedOperationsDGV.Dock = DockStyle.Bottom;
             generatedOperationsDGV.Location = new Point(0, 203);
             generatedOperationsDGV.Name = "generatedOperationsDGV";
+            generatedOperationsDGV.ReadOnly = true;
             generatedOperationsDGV.RowHeadersWidth = 51;
             generatedOperationsDGV.Size = new Size(965, 298);
             generatedOperationsDGV.TabIndex = 10;
@@ -349,6 +381,17 @@
             generateBtn.TabIndex = 9;
             generateBtn.Text = "Générer";
             generateBtn.UseVisualStyleBackColor = false;
+            generateBtn.Click += TriggerSuggestEvent;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("OCR A Extended", 13.8F);
+            label2.Location = new Point(864, 84);
+            label2.Name = "label2";
+            label2.Size = new Size(38, 24);
+            label2.TabIndex = 4;
+            label2.Text = "Ar";
             // 
             // currencyLabel
             // 
@@ -370,15 +413,15 @@
             amountLabel.TabIndex = 3;
             amountLabel.Text = "Montant";
             // 
-            // numericUpDown1
+            // amountNUD
             // 
-            numericUpDown1.Increment = new decimal(new int[] { 100, 0, 0, 0 });
-            numericUpDown1.Location = new Point(141, 21);
-            numericUpDown1.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(150, 31);
-            numericUpDown1.TabIndex = 0;
-            numericUpDown1.ThousandsSeparator = true;
+            amountNUD.Increment = new decimal(new int[] { 100, 0, 0, 0 });
+            amountNUD.Location = new Point(141, 21);
+            amountNUD.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
+            amountNUD.Name = "amountNUD";
+            amountNUD.Size = new Size(150, 27);
+            amountNUD.TabIndex = 0;
+            amountNUD.ThousandsSeparator = true;
             // 
             // DisplayPatientControl
             // 
@@ -404,7 +447,7 @@
             dynamicGenerationPage.ResumeLayout(false);
             dynamicGenerationPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)generatedOperationsDGV).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)amountNUD).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -419,12 +462,10 @@
         private TabPage teethStatePage;
         private TabPage newOperationPage;
         private TabPage dynamicGenerationPage;
-        private NumericUpDown numericUpDown1;
         private Label currencyLabel;
         private Label amountLabel;
         private Button generateBtn;
         private Button validateBtn;
-        private DataGridView generatedOperationsDGV;
         private Button addNewPatientBtn;
         private Label opeationLabel;
         private Label toothLabel;
@@ -436,5 +477,10 @@
         public ComboBox operationCB;
         public ComboBox teethCB;
         public ComboBox prioritiesCB;
+        public DataGridView generatedOperationsDGV;
+        private Label restTextLabel;
+        private Label label2;
+        public Label restAmountLabel;
+        public NumericUpDown amountNUD;
     }
 }

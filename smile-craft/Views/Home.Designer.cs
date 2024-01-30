@@ -107,6 +107,7 @@
             // addPatientBtn
             // 
             addPatientBtn.BackColor = Color.FromArgb(33, 37, 41);
+            addPatientBtn.Cursor = Cursors.Hand;
             addPatientBtn.FlatAppearance.BorderSize = 0;
             addPatientBtn.FlatStyle = FlatStyle.Flat;
             addPatientBtn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -157,6 +158,7 @@
             // patientsBtn
             // 
             patientsBtn.BackColor = Color.FromArgb(33, 37, 41);
+            patientsBtn.Cursor = Cursors.Hand;
             patientsBtn.FlatAppearance.BorderSize = 0;
             patientsBtn.FlatStyle = FlatStyle.Flat;
             patientsBtn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);

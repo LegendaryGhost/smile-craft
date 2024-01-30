@@ -6,20 +6,12 @@ using System.Threading.Tasks;
 
 namespace smile_craft.Models
 {
-    public class PatientSummary
+    public class PatientSummary(int idPatient, string fristname, string lastname, DateOnly? birthday)
     {
-        public int IdPatient { get; set; }
-        public string Fristname { get; set; }
-        public string Lastname { get; set; }
-        public DateOnly? Birthday { get; set; }
-
-        public PatientSummary(int idPatient, string fristname, string lastname, DateOnly? birthday)
-        {
-            IdPatient = idPatient;
-            Fristname = fristname;
-            Lastname = lastname;
-            Birthday = birthday;
-        }
+        public int IdPatient { get; set; } = idPatient;
+        public string Fristname { get; set; } = fristname;
+        public string Lastname { get; set; } = lastname;
+        public DateOnly? Birthday { get; set; } = birthday;
     }
 
 }

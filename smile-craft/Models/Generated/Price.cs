@@ -9,7 +9,7 @@ public partial class Price
 
     public int IdCategory { get; set; }
 
-    public decimal Price1 { get; set; }
+    public int Price1 { get; set; }
 
     public virtual Category IdCategoryNavigation { get; set; } = null!;
 

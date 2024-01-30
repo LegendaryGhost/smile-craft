@@ -7,6 +7,8 @@ namespace smile_craft.Views.Components
     {
         public delegate void AddPatientOperationHandler(object sender, EventArgs e);
         public event AddPatientOperationHandler? AddPatientOperationEvent;
+        public Action? SuggestOperationEvent { get; internal set; }
+
 
         private Patient? _patient;
 
@@ -14,6 +16,7 @@ namespace smile_craft.Views.Components
         {
             InitializeComponent();
             teethStateDGV.AutoGenerateColumns = false;
+            generatedOperationsDGV.AutoGenerateColumns = false;
         }
 
         public Patient? Patient
@@ -30,6 +33,11 @@ namespace smile_craft.Views.Components
         private void AddOperation(object sender, EventArgs e)
         {
             AddPatientOperationEvent?.Invoke(this, e);
+        }
+
+        private void TriggerSuggestEvent(object sender, EventArgs e)
+        {
+            SuggestOperationEvent?.Invoke();
         }
     }
 

@@ -68,7 +68,7 @@ CREATE TABLE perform(
 CREATE TABLE price(
    id_operation INTEGER,
    id_category INTEGER,
-   price MONEY NOT NULL,
+   price INTEGER NOT NULL,
    PRIMARY KEY(id_operation, id_category),
    FOREIGN KEY(id_operation) REFERENCES operation(id_operation),
    FOREIGN KEY(id_category) REFERENCES category(id_category)

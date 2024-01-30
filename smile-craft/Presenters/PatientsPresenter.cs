@@ -24,18 +24,18 @@ namespace smile_craft.Presenter
             _teethStateDataGrid = patientsView.GetPatientTeethStateDataGrid();
             SetUpPatientsDataGrid();
             SetUpTeethStateDataGrid();
+            SeUpSuggestedOperationsDataGrid();
             FillTeethCB();
             FillOperationsCB();
             FillPriorityCB();
             LoadAllPatients();
         }
 
-        public void SuggestOperations(int? patientId, decimal amount, int priorityId)
+        public void SuggestOperations(int? patientId, int amount, int priorityId)
         {
-            List<State> teethStates = _context.States.Include(s => s.IdMarkNavigation).Where(s => s.IdPatient == (patientId ?? 0)).ToList();
             (List<Perform> suggestedOperations, decimal restAmout) = OperationsSuggester.Suggest
             (
-                teethStates,
+                _context,
                 patientId ?? 0,
                 amount,
                 priorityId
@@ -44,6 +44,18 @@ namespace smile_craft.Presenter
             DisplaySuggestedOperations(suggestedOperations);
             DisplayRestSuggestionAmount(restAmout);
         }
+
+        private void DisplaySuggestedOperations(List<Perform> suggestedOperations)
+        {
+            BindingList<Perform> bindingList = new(suggestedOperations);
+            _patientsView.GetSuggestedOperationsDataGrid().DataSource = bindingList;
+        }
+
+        private void DisplayRestSuggestionAmount(decimal restAmout)
+        {
+            _patientsView.DisplayRestSuggestionAmount(restAmout);
+        }
+
 
         public void AddPatientOperation(int? patientId, int toothId, int operationId)
         {
@@ -317,6 +329,39 @@ namespace smile_craft.Presenter
             _teethStateDataGrid.Columns.Add(btnNoter);
         }
 
+        private void SeUpSuggestedOperationsDataGrid()
+        {
+            DataGridViewTextBoxColumn idColumn = new()
+            {
+                Name = "ID dent",
+                DataPropertyName = "IdTooth"
+            };
+
+            DataGridViewTextBoxColumn noteColumn = new()
+            {
+                Name = "Note actuelle",
+                DataPropertyName = "CurrentMark"
+            };
+            DataGridViewTextBoxColumn operationColumn = new()
+            {
+                Name = "Opération",
+                DataPropertyName = "OperationName"
+            };
+
+            DataGridViewTextBoxColumn priceColumn = new()
+            {
+                Name = "Prix",
+                DataPropertyName = "PriceString"
+            };
+
+            DataGridView suggestionsGridView = _patientsView.GetSuggestedOperationsDataGrid();
+
+            suggestionsGridView.Columns.Add(idColumn);
+            suggestionsGridView.Columns.Add(noteColumn);
+            suggestionsGridView.Columns.Add(operationColumn);
+            suggestionsGridView.Columns.Add(priceColumn);
+        }
+
         private void LoadPatientTeethState(int patientId)
         {
             var teethStateSummaries = _context.States
@@ -358,21 +403,19 @@ namespace smile_craft.Presenter
                     string fullname = (toothStateSummary?.Firstname ?? "") + " " + (toothStateSummary?.Lastname ?? "");
                     string toothDescription = (toothStateSummary?.Designation ?? "") + " " + (toothStateSummary?.IdTooth);
 
-                    using (ModifyToothStateView modifyView = new(fullname, toothDescription))
+                    using ModifyToothStateView modifyView = new(fullname, toothDescription);
+                    ComboBox comboBoxMarks = modifyView.markCB;
+
+                    FillMarksComboBox(comboBoxMarks, markId);
+                    comboBoxMarks.SelectedValue = markId;
+
+                    modifyView.OnModifyStateButtonClicked += (newMarkId) =>
                     {
-                        ComboBox comboBoxMarks = modifyView.markCB;
+                        SaveMarkModification(newMarkId, patientId, toothId);
+                        LoadPatientTeethState(patientId);
+                    };
 
-                        FillMarksComboBox(comboBoxMarks, markId);
-                        comboBoxMarks.SelectedValue = markId;
-
-                        modifyView.OnModifyStateButtonClicked += (newMarkId) =>
-                        {
-                            SaveMarkModification(newMarkId, patientId, toothId);
-                            LoadPatientTeethState(patientId);
-                        };
-
-                        modifyView.ShowDialog();
-                    }
+                    modifyView.ShowDialog();
                 }
             }
         }

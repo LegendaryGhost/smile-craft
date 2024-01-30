@@ -128,9 +128,7 @@ public partial class SmilecraftContext : DbContext
 
             entity.Property(e => e.IdOperation).HasColumnName("id_operation");
             entity.Property(e => e.IdCategory).HasColumnName("id_category");
-            entity.Property(e => e.Price1)
-                .HasColumnType("money")
-                .HasColumnName("price");
+            entity.Property(e => e.Price1).HasColumnName("price");
 
             entity.HasOne(d => d.IdCategoryNavigation).WithMany(p => p.Prices)
                 .HasForeignKey(d => d.IdCategory)
