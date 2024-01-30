@@ -1,10 +1,5 @@
 ﻿using smile_craft.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace smile_craft.Views
 {
@@ -22,5 +17,6 @@ namespace smile_craft.Views
         public DataGridView GetPatientTeethStateDataGrid();
         public ComboBox GetTeethCB();
         public ComboBox GetOperationsCB();
+        public ComboBox GetPrioritiesCB();
     }
 }

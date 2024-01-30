@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using smile_craft.Data;
 using smile_craft.Models;
+using smile_craft.Utils;
 using smile_craft.Views;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace smile_craft.Presenter
 {
@@ -30,7 +26,23 @@ namespace smile_craft.Presenter
             SetUpTeethStateDataGrid();
             FillTeethCB();
             FillOperationsCB();
+            FillPriorityCB();
             LoadAllPatients();
+        }
+
+        public void SuggestOperations(int? patientId, decimal amount, int priorityId)
+        {
+            List<State> teethStates = _context.States.Include(s => s.IdMarkNavigation).Where(s => s.IdPatient == (patientId ?? 0)).ToList();
+            (List<Perform> suggestedOperations, decimal restAmout) = OperationsSuggester.Suggest
+            (
+                teethStates,
+                patientId ?? 0,
+                amount,
+                priorityId
+            );
+
+            DisplaySuggestedOperations(suggestedOperations);
+            DisplayRestSuggestionAmount(restAmout);
         }
 
         public void AddPatientOperation(int? patientId, int toothId, int operationId)
@@ -185,6 +197,33 @@ namespace smile_craft.Presenter
             operationsCB.SelectedItem = data.FirstOrDefault(m => m.Key == 1);
         }
 
+        private void FillPriorityCB()
+        {
+            ComboBox prioritiesCB = _patientsView.GetPrioritiesCB();
+
+            // Retrieve all the teeth from the database
+            var priorities = _context.ToothPriorities.ToList();
+
+            // Create a list to store KeyValuePair objects
+            List<KeyValuePair<int, string>> data = [];
+
+            // Add each mark to the list
+            foreach (var priority in priorities)
+            {
+                data.Add(new KeyValuePair<int, string>(priority.IdPriority, priority.PriorityName));
+            }
+
+            // Bind the list to the DataSource of the ComboBox
+            prioritiesCB.DataSource = data;
+
+            // Set the DisplayMember and ValueMember properties
+            prioritiesCB.DisplayMember = "Value";
+            prioritiesCB.ValueMember = "Key";
+
+            // Select the mark with the given id
+            prioritiesCB.SelectedItem = data.FirstOrDefault(m => m.Key == 1);
+        }
+
         private void LoadAllPatients()
         {
             // Retrieve all the patients from the database and adds their summaries in the DataGridView
@@ -227,7 +266,7 @@ namespace smile_craft.Presenter
         {
             var operations = _context.Performs
                 .Where(p => p.IdPatient == patientId)
-                .OrderByDescending(o => o.DateOperation)
+                .OrderByDescending(o => o.IdPerform)
                 .Join(_context.Teeth,
                     p => p.IdTooth,
                     t => t.IdTooth,

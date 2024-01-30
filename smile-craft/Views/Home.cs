@@ -152,5 +152,10 @@ namespace smile_craft
         {
             return displayPatientControl.operationCB;
         }
+
+        public ComboBox GetPrioritiesCB()
+        {
+            return displayPatientControl.prioritiesCB;
+        }
     }
 }

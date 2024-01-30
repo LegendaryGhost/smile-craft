@@ -1,4 +1,8 @@
-﻿INSERT INTO mark (mark, description) VALUES
+﻿INSERT INTO tooth_priority(priority_name) VALUES
+    ('Aesthetic'),
+    ('Health');
+
+INSERT INTO mark (mark, description) VALUES
     (0, 'Removed'),
     (1, 'Almost completely gone'),
     (2, 'Almost completely gone'),

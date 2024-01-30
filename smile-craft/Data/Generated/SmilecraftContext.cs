@@ -32,6 +32,8 @@ public partial class SmilecraftContext : DbContext
 
     public virtual DbSet<Tooth> Teeth { get; set; }
 
+    public virtual DbSet<ToothPriority> ToothPriorities { get; set; }
+
     public virtual DbSet<ToothStateHistory> ToothStateHistories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -183,6 +185,18 @@ public partial class SmilecraftContext : DbContext
                 .HasForeignKey(d => d.IdCategory)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("tooth_id_category_fkey");
+        });
+
+        modelBuilder.Entity<ToothPriority>(entity =>
+        {
+            entity.HasKey(e => e.IdPriority).HasName("tooth_priority_pkey");
+
+            entity.ToTable("tooth_priority");
+
+            entity.Property(e => e.IdPriority).HasColumnName("id_priority");
+            entity.Property(e => e.PriorityName)
+                .HasMaxLength(255)
+                .HasColumnName("priority_name");
         });
 
         modelBuilder.Entity<ToothStateHistory>(entity =>

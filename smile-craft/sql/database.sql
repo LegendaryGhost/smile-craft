@@ -2,6 +2,11 @@ CREATE DATABASE smilecraft;
 
 \c smilecraft;
 
+CREATE TABLE tooth_priority(
+    id_priority SERIAL PRIMARY KEY,
+    priority_name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE patient(
    id_patient SERIAL,
    firstname VARCHAR(50)  NOT NULL,

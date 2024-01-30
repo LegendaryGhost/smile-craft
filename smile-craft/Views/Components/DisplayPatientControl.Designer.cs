@@ -47,7 +47,7 @@
             opeationLabel = new Label();
             toothLabel = new Label();
             dynamicGenerationPage = new TabPage();
-            priorityCB = new ComboBox();
+            prioritiesCB = new ComboBox();
             priorityLabel = new Label();
             suggestLabel = new Label();
             validateBtn = new Button();
@@ -266,7 +266,7 @@
             // 
             // dynamicGenerationPage
             // 
-            dynamicGenerationPage.Controls.Add(priorityCB);
+            dynamicGenerationPage.Controls.Add(prioritiesCB);
             dynamicGenerationPage.Controls.Add(priorityLabel);
             dynamicGenerationPage.Controls.Add(suggestLabel);
             dynamicGenerationPage.Controls.Add(validateBtn);
@@ -282,13 +282,13 @@
             dynamicGenerationPage.Text = "Génération dynamique";
             dynamicGenerationPage.UseVisualStyleBackColor = true;
             // 
-            // priorityCB
+            // prioritiesCB
             // 
-            priorityCB.FormattingEnabled = true;
-            priorityCB.Location = new Point(597, 21);
-            priorityCB.Name = "priorityCB";
-            priorityCB.Size = new Size(151, 32);
-            priorityCB.TabIndex = 14;
+            prioritiesCB.FormattingEnabled = true;
+            prioritiesCB.Location = new Point(597, 21);
+            prioritiesCB.Name = "prioritiesCB";
+            prioritiesCB.Size = new Size(151, 32);
+            prioritiesCB.TabIndex = 14;
             // 
             // priorityLabel
             // 
@@ -430,11 +430,11 @@
         private Label toothLabel;
         private Label suggestLabel;
         private Label priorityLabel;
-        private ComboBox priorityCB;
         public DataGridView operationsDGV;
         private PictureBox toothNumeringPB;
         public DataGridView teethStateDGV;
         public ComboBox operationCB;
         public ComboBox teethCB;
+        public ComboBox prioritiesCB;
     }
 }
