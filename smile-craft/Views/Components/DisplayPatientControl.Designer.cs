@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             fullNameLabel = new Label();
             birthdayLabel = new Label();
             birthdayLabelText = new Label();
@@ -51,13 +54,18 @@
             currencyLabel = new Label();
             amountLabel = new Label();
             numericUpDown1 = new NumericUpDown();
+            toothNumeringPB = new PictureBox();
+            teethStateDGV = new DataGridView();
             tabControl.SuspendLayout();
             operationsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)operationsDGV).BeginInit();
+            teethStatePage.SuspendLayout();
             newOperationPage.SuspendLayout();
             dynamicGenerationPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)generatedOperationsDGV).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)toothNumeringPB).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)teethStateDGV).BeginInit();
             SuspendLayout();
             // 
             // fullNameLabel
@@ -132,10 +140,13 @@
             // 
             // teethStatePage
             // 
-            teethStatePage.Location = new Point(4, 29);
+            teethStatePage.Controls.Add(teethStateDGV);
+            teethStatePage.Controls.Add(toothNumeringPB);
+            teethStatePage.Font = new Font("Segoe UI", 9F);
+            teethStatePage.Location = new Point(4, 33);
             teethStatePage.Name = "teethStatePage";
             teethStatePage.Padding = new Padding(3);
-            teethStatePage.Size = new Size(965, 505);
+            teethStatePage.Size = new Size(965, 501);
             teethStatePage.TabIndex = 1;
             teethStatePage.Text = "Etat des dents";
             teethStatePage.UseVisualStyleBackColor = true;
@@ -321,6 +332,53 @@
             numericUpDown1.TabIndex = 0;
             numericUpDown1.ThousandsSeparator = true;
             // 
+            // toothNumeringPB
+            // 
+            toothNumeringPB.Dock = DockStyle.Left;
+            toothNumeringPB.Image = Properties.Resources.tooth_numering;
+            toothNumeringPB.Location = new Point(3, 3);
+            toothNumeringPB.Name = "toothNumeringPB";
+            toothNumeringPB.Size = new Size(592, 495);
+            toothNumeringPB.SizeMode = PictureBoxSizeMode.Zoom;
+            toothNumeringPB.TabIndex = 0;
+            toothNumeringPB.TabStop = false;
+            // 
+            // teethStateDGV
+            // 
+            teethStateDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            teethStateDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            teethStateDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            teethStateDGV.DefaultCellStyle = dataGridViewCellStyle2;
+            teethStateDGV.Dock = DockStyle.Right;
+            teethStateDGV.Location = new Point(601, 3);
+            teethStateDGV.Name = "teethStateDGV";
+            teethStateDGV.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            teethStateDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            teethStateDGV.RowHeadersWidth = 51;
+            teethStateDGV.Size = new Size(361, 495);
+            teethStateDGV.TabIndex = 1;
+            // 
             // DisplayPatientControl
             // 
             AutoScaleDimensions = new SizeF(14F, 24F);
@@ -337,12 +395,15 @@
             tabControl.ResumeLayout(false);
             operationsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)operationsDGV).EndInit();
+            teethStatePage.ResumeLayout(false);
             newOperationPage.ResumeLayout(false);
             newOperationPage.PerformLayout();
             dynamicGenerationPage.ResumeLayout(false);
             dynamicGenerationPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)generatedOperationsDGV).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)toothNumeringPB).EndInit();
+            ((System.ComponentModel.ISupportInitialize)teethStateDGV).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -373,5 +434,7 @@
         private ComboBox operationCB;
         private ComboBox toothCB;
         public DataGridView operationsDGV;
+        private PictureBox toothNumeringPB;
+        public DataGridView teethStateDGV;
     }
 }

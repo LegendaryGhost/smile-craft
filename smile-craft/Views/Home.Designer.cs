@@ -208,6 +208,7 @@
             displayPatientControl.Location = new Point(0, 0);
             displayPatientControl.Margin = new Padding(5, 4, 5, 4);
             displayPatientControl.Name = "displayPatientControl";
+            displayPatientControl.Patient = null;
             displayPatientControl.Size = new Size(1223, 699);
             displayPatientControl.TabIndex = 8;
             // 
@@ -224,6 +225,7 @@
             Controls.Add(addPatientControl);
             Controls.Add(displayPatientControl);
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MdiChildrenMinimizedAnchorBottom = false;
             MinimumSize = new Size(974, 691);

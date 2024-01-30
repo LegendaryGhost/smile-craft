@@ -17,6 +17,7 @@ namespace smile_craft.Presenter
         private readonly SmilecraftContext _context;
         private readonly IPatientsView _patientsView;
         private readonly DataGridView _patientsDataGrid;
+        private readonly DataGridView _teethStateDataGrid;
 
         public PatientsPresenter(SmilecraftContext context, IPatientsView patientsView)
         {
@@ -24,7 +25,9 @@ namespace smile_craft.Presenter
             _context = context;
             _patientsView = patientsView;
             _patientsDataGrid = patientsView.GetPatientsDataGrid();
+            _teethStateDataGrid = patientsView.GetPatientTeethDataGrid();
             SetUpPatientsDataGrid();
+            SetUpTeethStateDataGrid();
             LoadAllPatients();
         }
 
@@ -131,13 +134,14 @@ namespace smile_craft.Presenter
                     if (patient != null)
                     {
                         _patientsView.DisplaySinglePatient(patient);
-                        LoadPatientsOperation(patientId);
+                        LoadPatientOperations(patientId);
+                        LoadPatientTeethState(patientId);
                     }
                 }
             }
         }
 
-        private void LoadPatientsOperation(int patientId)
+        private void LoadPatientOperations(int patientId)
         {
             var operations = _context.Performs
                 .Where(p => p.IdPatient == patientId)
@@ -163,5 +167,46 @@ namespace smile_craft.Presenter
             _patientsView.GetPatientOperationsDataGrid().DataSource = operationsBindingList;
         }
 
+        private void SetUpTeethStateDataGrid()
+        {
+            DataGridViewTextBoxColumn idColumn = new()
+            {
+                Name = "ID",
+                DataPropertyName = "IdTooth"
+            };
+
+            DataGridViewTextBoxColumn noteColumn = new()
+            {
+                Name = "Note",
+                DataPropertyName = "Mark"
+            };
+
+            DataGridViewButtonColumn btnNoter = new()
+            {
+                Name = "Noter",
+                Text = "Modify",
+                UseColumnTextForButtonValue = true
+            };
+
+            _teethStateDataGrid.CellClick += ModifyMark;
+            _teethStateDataGrid.Columns.Add(idColumn);
+            _teethStateDataGrid.Columns.Add(noteColumn);
+            _teethStateDataGrid.Columns.Add(btnNoter);
+        }
+
+        private void LoadPatientTeethState(int patientId)
+        {
+            var teethStateSummaries = _context.States
+                                    .Where(p => p.IdPatient == patientId)
+                                    .Include(s => s.Mark)
+                                    .Select(s => new TeethStateSummary
+                                    (
+                                        s.IdTooth,
+                                        s.Mark.Mark
+                                    ))
+                                    .ToList();
+            BindingList<TeethStateSummary> teethStateList = new BindingList<TeethStateSummary>(teethStateSummaries);
+            _teethStateDataGrid.DataSource = teethStateList;
+        }
     }
 }

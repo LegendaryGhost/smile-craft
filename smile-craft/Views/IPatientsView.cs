@@ -18,5 +18,6 @@ namespace smile_craft.Views
         public DataGridView GetPatientsDataGrid();
         public void DisplaySinglePatient(Patient patient);
         public DataGridView GetPatientOperationsDataGrid();
+        public DataGridView GetPatientTeethDataGrid();
     }
 }

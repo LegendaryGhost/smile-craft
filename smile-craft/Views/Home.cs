@@ -126,5 +126,10 @@ namespace smile_craft
         {
             return displayPatientControl.operationsDGV;
         }
+
+        public DataGridView GetPatientTeethDataGrid()
+        {
+            return displayPatientControl.teethStateDGV;
+        }
     }
 }

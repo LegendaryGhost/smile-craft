@@ -41,7 +41,7 @@ CREATE TABLE tooth(
 CREATE TABLE state(
    id_patient INTEGER,
    id_tooth INTEGER,
-   id_mark INTEGER,
+   id_mark INTEGER NOT NULL,
    PRIMARY KEY(id_patient, id_tooth),
    FOREIGN KEY(id_patient) REFERENCES patient(id_patient),
    FOREIGN KEY(id_tooth) REFERENCES tooth(id_tooth),
