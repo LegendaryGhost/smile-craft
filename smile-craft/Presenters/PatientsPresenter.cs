@@ -25,10 +25,28 @@ namespace smile_craft.Presenter
             _context = context;
             _patientsView = patientsView;
             _patientsDataGrid = patientsView.GetPatientsDataGrid();
-            _teethStateDataGrid = patientsView.GetPatientTeethDataGrid();
+            _teethStateDataGrid = patientsView.GetPatientTeethStateDataGrid();
             SetUpPatientsDataGrid();
             SetUpTeethStateDataGrid();
+            FillTeethCB();
+            FillOperationsCB();
             LoadAllPatients();
+        }
+
+        public void AddPatientOperation(int? patientId, int toothId, int operationId)
+        {
+            Perform newPerform = new()
+            {
+                IdPatient = patientId,
+                IdTooth = toothId,
+                IdOperation = operationId
+            };
+
+            _context.Performs.Add(newPerform);
+            _context.SaveChanges();
+            LoadPatientOperations(patientId ?? 0);
+            LoadPatientTeethState(patientId ?? 0);
+            MessageBox.Show("Opération effectuée");
         }
 
         public void AddPatient()
@@ -104,6 +122,69 @@ namespace smile_craft.Presenter
             _patientsDataGrid.Columns.Add(btnDetails);
         }
 
+        private void FillTeethCB()
+        {
+            ComboBox teethCB = _patientsView.GetTeethCB();
+
+            // Retrieve all the teeth from the database
+            var teeth = _context.Teeth.Include
+            (
+                t => t.IdCategoryNavigation
+            ).ToList();
+
+            // Create a list to store KeyValuePair objects
+            List<KeyValuePair<int, string>> data = [];
+
+            // Add each mark to the list
+            foreach (var tooth in teeth)
+            {
+                data.Add(
+                    new KeyValuePair<int, string>
+                    (
+                        tooth.IdTooth,
+                        tooth.IdCategoryNavigation.Designation + " " + tooth.IdTooth
+                    )
+                );
+            }
+
+            // Bind the list to the DataSource of the ComboBox
+            teethCB.DataSource = data;
+
+            // Set the DisplayMember and ValueMember properties
+            teethCB.DisplayMember = "Value";
+            teethCB.ValueMember = "Key";
+
+            // Select the mark with the given id
+            teethCB.SelectedItem = data.FirstOrDefault(m => m.Key == 1);
+        }
+
+        private void FillOperationsCB()
+        {
+            ComboBox operationsCB = _patientsView.GetOperationsCB();
+
+            // Retrieve all the teeth from the database
+            var operations = _context.Operations.ToList();
+
+            // Create a list to store KeyValuePair objects
+            List<KeyValuePair<int, string>> data = [];
+
+            // Add each mark to the list
+            foreach (var operation in operations)
+            {
+                data.Add(new KeyValuePair<int, string>(operation.IdOperation, operation.Name));
+            }
+
+            // Bind the list to the DataSource of the ComboBox
+            operationsCB.DataSource = data;
+
+            // Set the DisplayMember and ValueMember properties
+            operationsCB.DisplayMember = "Value";
+            operationsCB.ValueMember = "Key";
+
+            // Select the mark with the given id
+            operationsCB.SelectedItem = data.FirstOrDefault(m => m.Key == 1);
+        }
+
         private void LoadAllPatients()
         {
             // Retrieve all the patients from the database and adds their summaries in the DataGridView
@@ -116,6 +197,7 @@ namespace smile_craft.Presenter
                                         p.Birthday
                                     ))
                                     .ToList();
+            //Create a binding list from the list so the data grid view can be notified of the changes
             _patientList = new BindingList<PatientSummary>(patientSummaries);
             _patientsView.SetPatientsDataSource(_patientList);
         }
@@ -165,7 +247,8 @@ namespace smile_craft.Presenter
                 .ToList();
 
             var operationsBindingList = new BindingList<OperationSummary>(operations);
-            _patientsView.GetPatientOperationsDataGrid().DataSource = operationsBindingList;
+            var bindingSource = new BindingSource(operationsBindingList, null);
+            _patientsView.GetPatientOperationsDataGrid().DataSource = bindingSource;
         }
 
         private void SetUpTeethStateDataGrid()
@@ -212,8 +295,9 @@ namespace smile_craft.Presenter
                                         s.IdToothNavigation.IdCategoryNavigation.Designation
                                     ))
                                     .ToList();
-            BindingList<ToothStateSummary> teethStateList = new BindingList<ToothStateSummary>(teethStateSummaries);
-            _teethStateDataGrid.DataSource = teethStateList;
+            var teethStateList = new BindingList<ToothStateSummary>(teethStateSummaries);
+            var bindingSource = new BindingSource(teethStateList, null);
+            _teethStateDataGrid.DataSource = bindingSource;
         }
 
         private void ModifyMark(object? sender, DataGridViewCellEventArgs e)
@@ -289,7 +373,7 @@ namespace smile_craft.Presenter
             var marks = _context.Marks.ToList();
 
             // Create a list to store KeyValuePair objects
-            List<KeyValuePair<int, int>> data = new List<KeyValuePair<int, int>>();
+            List<KeyValuePair<int, int>> data = [];
 
             // Add each mark to the list
             foreach (var mark in marks)

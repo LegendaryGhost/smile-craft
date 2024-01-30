@@ -18,6 +18,7 @@ namespace smile_craft
         private readonly SmilecraftContext context;
 
         public event Action AddPatientEvent;
+        public event Action<int?, int, int> AddPatientOperationEvent;
 
         public Home()
         {
@@ -29,6 +30,8 @@ namespace smile_craft
             // Subscribe the event to the patientsPresenter
             AddPatientEvent += patientsPresenter.AddPatient;
             addPatientControl.AddPatientEvent += AddPatient;
+            AddPatientOperationEvent += patientsPresenter.AddPatientOperation;
+            displayPatientControl.AddPatientOperationEvent += AddPatientOperation;
         }
 
         public string GetFirstName()
@@ -50,6 +53,14 @@ namespace smile_craft
         {
             AddPatientEvent?.Invoke();
             ShowPatientsPanel(sender, e);
+        }
+
+        private void AddPatientOperation(object sender, EventArgs e)
+        {
+            int? patientId = displayPatientControl.Patient?.IdPatient;
+            int toothId = (int?)displayPatientControl.teethCB.SelectedValue ?? 0;
+            int operationId = (int?)displayPatientControl.operationCB.SelectedValue ?? 0;
+            AddPatientOperationEvent?.Invoke(patientId, toothId, operationId);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -127,9 +138,19 @@ namespace smile_craft
             return displayPatientControl.operationsDGV;
         }
 
-        public DataGridView GetPatientTeethDataGrid()
+        public DataGridView GetPatientTeethStateDataGrid()
         {
             return displayPatientControl.teethStateDGV;
+        }
+
+        public ComboBox GetTeethCB()
+        {
+            return displayPatientControl.teethCB;
+        }
+
+        public ComboBox GetOperationsCB()
+        {
+            return displayPatientControl.operationCB;
         }
     }
 }

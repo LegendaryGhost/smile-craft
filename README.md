@@ -99,14 +99,14 @@ The objective of this application is to enable a dental clinic to manage the den
 
    b. **Dental State Management**
 
-      - [ ] Recording the dental state for each patient, rated from 0 to 10 according to specified criteria:
+      - [x] Recording the dental state for each patient, rated from 0 to 10 according to specified criteria:
         - 0: Tooth removed
         - 1 to 3: Tooth almost completely destroyed
         - 4 to 6: Cavity
         - 7 to 9: Dirty
         - 10: Perfect
 
-      - [ ] Modification of the dental state for a patient.
+      - [x] Modification of the dental state for a patient.
 
    c. **Operation Management**
 

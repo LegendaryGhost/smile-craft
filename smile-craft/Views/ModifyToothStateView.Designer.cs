@@ -121,6 +121,7 @@
             Controls.Add(toothLabel);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ModifyToothStateView";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ModifyToothStateView";
             ResumeLayout(false);
             PerformLayout();

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             fullNameLabel = new Label();
             birthdayLabel = new Label();
             birthdayLabelText = new Label();
@@ -42,7 +42,7 @@
             toothNumeringPB = new PictureBox();
             newOperationPage = new TabPage();
             operationCB = new ComboBox();
-            toothCB = new ComboBox();
+            teethCB = new ComboBox();
             addNewPatientBtn = new Button();
             opeationLabel = new Label();
             toothLabel = new Label();
@@ -143,10 +143,10 @@
             teethStatePage.Controls.Add(teethStateDGV);
             teethStatePage.Controls.Add(toothNumeringPB);
             teethStatePage.Font = new Font("Segoe UI", 9F);
-            teethStatePage.Location = new Point(4, 33);
+            teethStatePage.Location = new Point(4, 29);
             teethStatePage.Name = "teethStatePage";
             teethStatePage.Padding = new Padding(3);
-            teethStatePage.Size = new Size(965, 501);
+            teethStatePage.Size = new Size(965, 505);
             teethStatePage.TabIndex = 1;
             teethStatePage.Text = "Etat des dents";
             teethStatePage.UseVisualStyleBackColor = true;
@@ -154,37 +154,37 @@
             // teethStateDGV
             // 
             teethStateDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Control;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            teethStateDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            teethStateDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             teethStateDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            teethStateDGV.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            teethStateDGV.DefaultCellStyle = dataGridViewCellStyle2;
             teethStateDGV.Dock = DockStyle.Right;
             teethStateDGV.Location = new Point(601, 3);
             teethStateDGV.Name = "teethStateDGV";
             teethStateDGV.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Control;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            teethStateDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            teethStateDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             teethStateDGV.RowHeadersWidth = 51;
-            teethStateDGV.Size = new Size(361, 495);
+            teethStateDGV.Size = new Size(361, 499);
             teethStateDGV.TabIndex = 1;
             // 
             // toothNumeringPB
@@ -193,7 +193,7 @@
             toothNumeringPB.Image = Properties.Resources.tooth_numering;
             toothNumeringPB.Location = new Point(3, 3);
             toothNumeringPB.Name = "toothNumeringPB";
-            toothNumeringPB.Size = new Size(592, 495);
+            toothNumeringPB.Size = new Size(592, 499);
             toothNumeringPB.SizeMode = PictureBoxSizeMode.Zoom;
             toothNumeringPB.TabIndex = 0;
             toothNumeringPB.TabStop = false;
@@ -201,13 +201,13 @@
             // newOperationPage
             // 
             newOperationPage.Controls.Add(operationCB);
-            newOperationPage.Controls.Add(toothCB);
+            newOperationPage.Controls.Add(teethCB);
             newOperationPage.Controls.Add(addNewPatientBtn);
             newOperationPage.Controls.Add(opeationLabel);
             newOperationPage.Controls.Add(toothLabel);
-            newOperationPage.Location = new Point(4, 33);
+            newOperationPage.Location = new Point(4, 29);
             newOperationPage.Name = "newOperationPage";
-            newOperationPage.Size = new Size(965, 501);
+            newOperationPage.Size = new Size(965, 505);
             newOperationPage.TabIndex = 2;
             newOperationPage.Text = "Nouvelle Opération";
             newOperationPage.UseVisualStyleBackColor = true;
@@ -220,13 +220,13 @@
             operationCB.Size = new Size(289, 32);
             operationCB.TabIndex = 17;
             // 
-            // toothCB
+            // teethCB
             // 
-            toothCB.FormattingEnabled = true;
-            toothCB.Location = new Point(344, 140);
-            toothCB.Name = "toothCB";
-            toothCB.Size = new Size(289, 32);
-            toothCB.TabIndex = 16;
+            teethCB.FormattingEnabled = true;
+            teethCB.Location = new Point(344, 140);
+            teethCB.Name = "teethCB";
+            teethCB.Size = new Size(289, 32);
+            teethCB.TabIndex = 16;
             // 
             // addNewPatientBtn
             // 
@@ -242,6 +242,7 @@
             addNewPatientBtn.TabIndex = 15;
             addNewPatientBtn.Text = "Ajouter";
             addNewPatientBtn.UseVisualStyleBackColor = false;
+            addNewPatientBtn.Click += AddOperation;
             // 
             // opeationLabel
             // 
@@ -430,10 +431,10 @@
         private Label suggestLabel;
         private Label priorityLabel;
         private ComboBox priorityCB;
-        private ComboBox operationCB;
-        private ComboBox toothCB;
         public DataGridView operationsDGV;
         private PictureBox toothNumeringPB;
         public DataGridView teethStateDGV;
+        public ComboBox operationCB;
+        public ComboBox teethCB;
     }
 }

@@ -120,7 +120,7 @@ FOR EACH ROW EXECUTE PROCEDURE record_state_change();
 -- Update state function
 CREATE OR REPLACE FUNCTION update_state() RETURNS TRIGGER AS $$
 BEGIN
- IF NEW.id_operation = 4 THEN
+ IF NEW.id_operation = 3 THEN
     UPDATE state SET id_mark = 1 WHERE id_patient = NEW.id_patient AND id_tooth = NEW.id_tooth;
  ELSE
     UPDATE state SET id_mark = 11 WHERE id_patient = NEW.id_patient AND id_tooth = NEW.id_tooth;

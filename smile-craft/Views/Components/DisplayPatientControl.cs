@@ -14,8 +14,11 @@ namespace smile_craft.Views.Components
 {
     public partial class DisplayPatientControl : UserControl
     {
+        public delegate void AddPatientOperationHandler(object sender, EventArgs e);
+        public event AddPatientOperationHandler? AddPatientOperationEvent;
+
         private Patient? _patient;
-    
+
         public DisplayPatientControl()
         {
             InitializeComponent();
@@ -31,6 +34,11 @@ namespace smile_craft.Views.Components
                 fullNameLabel.Text = _patient?.Firstname + " " + _patient?.Lastname;
                 birthdayLabelText.Text = _patient?.Birthday?.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
+        }
+
+        private void AddOperation(object sender, EventArgs e)
+        {
+            AddPatientOperationEvent?.Invoke(this, e);
         }
     }
 
