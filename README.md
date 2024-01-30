@@ -117,7 +117,7 @@ The objective of this application is to enable a dental clinic to manage the den
         - Tooth involved
         - Associated patient
 
-      - [ ] List of operations performed on each patient.
+      - [x] List of operations performed on each patient.
 
    d. **Operation Suggestions**
 

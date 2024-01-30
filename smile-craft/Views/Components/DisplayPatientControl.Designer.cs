@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             fullNameLabel = new Label();
             birthdayLabel = new Label();
             birthdayLabelText = new Label();
@@ -154,35 +154,35 @@
             // teethStateDGV
             // 
             teethStateDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            teethStateDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            teethStateDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             teethStateDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            teethStateDGV.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            teethStateDGV.DefaultCellStyle = dataGridViewCellStyle5;
             teethStateDGV.Dock = DockStyle.Right;
             teethStateDGV.Location = new Point(601, 3);
             teethStateDGV.Name = "teethStateDGV";
             teethStateDGV.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            teethStateDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            teethStateDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             teethStateDGV.RowHeadersWidth = 51;
             teethStateDGV.Size = new Size(361, 495);
             teethStateDGV.TabIndex = 1;
@@ -205,9 +205,9 @@
             newOperationPage.Controls.Add(addNewPatientBtn);
             newOperationPage.Controls.Add(opeationLabel);
             newOperationPage.Controls.Add(toothLabel);
-            newOperationPage.Location = new Point(4, 29);
+            newOperationPage.Location = new Point(4, 33);
             newOperationPage.Name = "newOperationPage";
-            newOperationPage.Size = new Size(965, 505);
+            newOperationPage.Size = new Size(965, 501);
             newOperationPage.TabIndex = 2;
             newOperationPage.Text = "Nouvelle Opération";
             newOperationPage.UseVisualStyleBackColor = true;
@@ -274,9 +274,9 @@
             dynamicGenerationPage.Controls.Add(currencyLabel);
             dynamicGenerationPage.Controls.Add(amountLabel);
             dynamicGenerationPage.Controls.Add(numericUpDown1);
-            dynamicGenerationPage.Location = new Point(4, 29);
+            dynamicGenerationPage.Location = new Point(4, 33);
             dynamicGenerationPage.Name = "dynamicGenerationPage";
-            dynamicGenerationPage.Size = new Size(965, 505);
+            dynamicGenerationPage.Size = new Size(965, 501);
             dynamicGenerationPage.TabIndex = 3;
             dynamicGenerationPage.Text = "Génération dynamique";
             dynamicGenerationPage.UseVisualStyleBackColor = true;
@@ -328,7 +328,7 @@
             // 
             generatedOperationsDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             generatedOperationsDGV.Dock = DockStyle.Bottom;
-            generatedOperationsDGV.Location = new Point(0, 207);
+            generatedOperationsDGV.Location = new Point(0, 203);
             generatedOperationsDGV.Name = "generatedOperationsDGV";
             generatedOperationsDGV.RowHeadersWidth = 51;
             generatedOperationsDGV.Size = new Size(965, 298);
@@ -426,7 +426,6 @@
         private DataGridView generatedOperationsDGV;
         private Button addNewPatientBtn;
         private Label opeationLabel;
-        private TextBox lastNameTB;
         private Label toothLabel;
         private Label suggestLabel;
         private Label priorityLabel;

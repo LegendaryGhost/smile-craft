@@ -189,7 +189,7 @@ namespace smile_craft.Presenter
                 UseColumnTextForButtonValue = true
             };
 
-            /*_teethStateDataGrid.CellClick += ModifyMark;*/
+            _teethStateDataGrid.CellClick += ModifyMark;
             _teethStateDataGrid.Columns.Add(idColumn);
             _teethStateDataGrid.Columns.Add(noteColumn);
             _teethStateDataGrid.Columns.Add(btnNoter);
@@ -205,12 +205,108 @@ namespace smile_craft.Presenter
                                     (
                                         s.IdTooth,
                                         s.IdPatient,
+                                        s.IdMarkNavigation.Mark1,
                                         s.IdMark,
-                                        s.IdMarkNavigation.Mark1
+                                        s.IdPatientNavigation.Firstname,
+                                        s.IdPatientNavigation.Lastname,
+                                        s.IdToothNavigation.IdCategoryNavigation.Designation
                                     ))
                                     .ToList();
             BindingList<ToothStateSummary> teethStateList = new BindingList<ToothStateSummary>(teethStateSummaries);
             _teethStateDataGrid.DataSource = teethStateList;
         }
+
+        private void ModifyMark(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && _teethStateDataGrid.Columns[e.ColumnIndex].Name == "Noter")
+            {
+                if (_teethStateDataGrid.Rows.Count > e.RowIndex)
+                {
+                    // Get the selected row
+                    var selectedRow = _teethStateDataGrid.Rows[e.RowIndex];
+
+                    // Cast the row to ToothStateSummary
+                    var toothStateSummary = selectedRow.DataBoundItem as ToothStateSummary;
+
+                    // Now you can access the idPatient
+                    int toothId = toothStateSummary?.IdTooth ?? 0;
+                    int patientId = toothStateSummary?.IdPatient ?? 0;
+                    int markId = toothStateSummary?.IdMark ?? 0;
+                    string fullname = (toothStateSummary?.Firstname ?? "") + " " + (toothStateSummary?.Lastname ?? "");
+                    string toothDescription = (toothStateSummary?.Designation ?? "") + " " + (toothStateSummary?.IdTooth);
+
+                    using (ModifyToothStateView modifyView = new(fullname, toothDescription))
+                    {
+                        ComboBox comboBoxMarks = modifyView.markCB;
+
+                        FillMarksComboBox(comboBoxMarks, markId);
+                        comboBoxMarks.SelectedValue = markId;
+
+                        modifyView.OnModifyStateButtonClicked += (newMarkId) =>
+                        {
+                            SaveMarkModification(newMarkId, patientId, toothId);
+                            LoadPatientTeethState(patientId);
+                        };
+
+                        modifyView.ShowDialog();
+                    }
+                }
+            }
+        }
+
+        private void SaveMarkModification(int? newMarkId, int patientId, int toothId)
+        {
+            // Check if newMarkId is not null
+            if (newMarkId != null)
+            {
+                // Find the State record
+                var stateRecord = _context.States.Find(patientId, toothId);
+
+                if (stateRecord != null)
+                {
+                    // Update the IdMark property
+                    stateRecord.IdMark = newMarkId ?? 0;
+
+                    // Apply the changes to the database
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    MessageBox.Show("Patient introuvable lors de la modification de l'état d'une dent");
+                }
+            }
+            else
+            {
+                // Handle the case when newMarkId is null
+                // For example, you can show a message box to inform the user to select a mark
+                MessageBox.Show("Please select a mark.");
+            }
+        }
+
+        private void FillMarksComboBox(ComboBox comboBox, int markId)
+        {
+            // Retrieve all the marks from the database
+            var marks = _context.Marks.ToList();
+
+            // Create a list to store KeyValuePair objects
+            List<KeyValuePair<int, int>> data = new List<KeyValuePair<int, int>>();
+
+            // Add each mark to the list
+            foreach (var mark in marks)
+            {
+                data.Add(new KeyValuePair<int, int>(mark.IdMark, mark.Mark1));
+            }
+
+            // Bind the list to the DataSource of the ComboBox
+            comboBox.DataSource = data;
+
+            // Set the DisplayMember and ValueMember properties
+            comboBox.DisplayMember = "Value";
+            comboBox.ValueMember = "Key";
+
+            // Select the mark with the given id
+            comboBox.SelectedItem = data.FirstOrDefault(m => m.Key == markId);
+        }
+
     }
 }
