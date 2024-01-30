@@ -1,6 +1,8 @@
 # SmileCraft
 A desktop app to manage the patients of a dentistry
 
+![Screenshot of the app](smile-craft/assets/img/screenshots/smilecraft3.png)
+
 ## I - Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
