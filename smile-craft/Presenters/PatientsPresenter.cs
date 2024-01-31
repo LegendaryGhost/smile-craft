@@ -91,7 +91,7 @@ namespace smile_craft.Presenter
                 return;
             }
 
-            if (birthday > DateTime.Today)
+            if (birthday >= DateTime.Today)
             {
                 MessageBox.Show("Birthday cannot be a future date.");
                 return;
@@ -275,6 +275,8 @@ namespace smile_craft.Presenter
                         _patientsView.DisplaySinglePatient(patient);
                         LoadPatientOperations(patientId);
                         LoadPatientTeethState(patientId);
+                        _suggestedOperations = [];
+                        DeleteSuggestedOperations();
                     }
                 }
             }
@@ -502,15 +504,20 @@ namespace smile_craft.Presenter
             }
             _context.SaveChanges();
 
-            _suggestedOperations = [];
-            DisplaySuggestedOperations(_suggestedOperations);
-            _patientsView.DisplayRestSuggestionAmount(0);
-            _patientsView.DisplaySuggestionTotal(0);
+            DeleteSuggestedOperations();
 
             LoadPatientOperations(patientId ?? 1);
             LoadPatientTeethState(patientId ?? 1);
 
             MessageBox.Show("Opération(s) suggérées effectuées");
+        }
+
+        private void DeleteSuggestedOperations()
+        {
+            _suggestedOperations = [];
+            DisplaySuggestedOperations(_suggestedOperations);
+            _patientsView.DisplayRestSuggestionAmount(0);
+            _patientsView.DisplaySuggestionTotal(0);
         }
     }
 }

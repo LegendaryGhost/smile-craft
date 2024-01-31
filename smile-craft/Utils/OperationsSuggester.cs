@@ -113,7 +113,6 @@ namespace smile_craft.Utils
             int mark;
             foreach (State state in teethStates)
             {
-                Debug.WriteLine(state.IdPatient + " : dent - " + state.IdTooth + ", note - " + state.IdMarkNavigation.Mark1);
                 mark = state.IdMarkNavigation.Mark1;
                 if (mark == 0)
                 {
