@@ -59,10 +59,17 @@ namespace smile_craft.Utils
                 {1, 4}
             };
 
+            var positionsOrder = new Dictionary<string, int>
+            {
+                {"up", 1},
+                {"down", 2}
+            };
+
             return
             [
                 .. operations
                                 .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
+                                .ThenBy(op => positionsOrder[op.Position ?? "up"])
                                 .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
                                 .ThenBy(op => op.CurrentMark ?? 0)
                                 .ThenBy(op => op.IdTooth)
@@ -87,12 +94,19 @@ namespace smile_craft.Utils
                 {1, 4}
             };
 
+            var positionsOrder = new Dictionary<string, int>
+            {
+                {"down", 1},
+                {"up", 2}
+            };
+
             return
             [
                 .. operations
-                    .OrderBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
-                    .ThenBy(op => operationsOrder[op.IdOperation ?? 1])
+                    .OrderBy(op => operationsOrder[op.IdOperation ?? 1])
                     .ThenBy(op => op.CurrentMark ?? 0)
+                    .ThenBy(op => categoriesOrder[op.CategoryName ?? "Molar"])
+                    .ThenBy(op => positionsOrder[op.Position ?? "up"])
                     .ThenBy(op => op.IdTooth)
             ];
         }
@@ -114,7 +128,7 @@ namespace smile_craft.Utils
             foreach (State state in teethStates)
             {
                 mark = state.IdMarkNavigation.Mark1;
-                if (mark == 0)
+                /*if (mark == 0)
                 {
                     idOperation = 4;
                 }
@@ -129,6 +143,16 @@ namespace smile_craft.Utils
                 else if (mark <= 9)
                 {
                     idOperation = 1;
+                }*/
+
+                // Alea
+                if (mark < 4)
+                {
+                    idOperation = 4;
+                }
+                else if (mark <= 9)
+                {
+                    idOperation = 2;
                 }
 
                 if (mark < 10)
@@ -146,12 +170,13 @@ namespace smile_craft.Utils
                                     p => p.IdCategory == state.IdToothNavigation.IdCategory && p.IdOperation == idOperation
                                 )?.Price1,
                             OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name,
-                            CategoryName = categories.Find(ca => ca.IdCategory == state.IdToothNavigation.IdCategory)?.Designation
+                            CategoryName = categories.Find(ca => ca.IdCategory == state.IdToothNavigation.IdCategory)?.Designation,
+                            Position = state.IdToothNavigation.Location
                         }
                     );
 
                     // Adds the extra operation for replacement after removing it
-                    if (idOperation == 3)
+                    /*if (idOperation == 3)
                     {
                         idOperation = 4;
                         performs.Add
@@ -167,10 +192,11 @@ namespace smile_craft.Utils
                                         p => p.IdCategory == state.IdToothNavigation.IdCategory && p.IdOperation == idOperation
                                     )?.Price1,
                                 OperationName = operations.Find(op => op.IdOperation == idOperation)?.Name,
-                                CategoryName = categories.Find(ca => ca.IdCategory == state.IdToothNavigation.IdCategory)?.Designation
+                                CategoryName = categories.Find(ca => ca.IdCategory == state.IdToothNavigation.IdCategory)?.Designation,
+                                Position = state.IdToothNavigation.Location
                             }
                         );
-                    }
+                    }*/
                 }
             }
 

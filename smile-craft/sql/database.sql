@@ -39,8 +39,10 @@ CREATE TABLE tooth(
    id_tooth SERIAL,
    location VARCHAR(5)  NOT NULL,
    id_category INTEGER NOT NULL,
+   id_perso_category INTEGER NOT NULL,
    PRIMARY KEY(id_tooth),
-   FOREIGN KEY(id_category) REFERENCES category(id_category)
+   FOREIGN KEY(id_category) REFERENCES category(id_category),
+   FOREIGN KEY(id_perso_category) REFERENCES personalized_category(id_perso_category)
 );
 
 CREATE TABLE state(
@@ -85,6 +87,11 @@ CREATE TABLE tooth_state_history (
    FOREIGN KEY (id_tooth) REFERENCES tooth(id_tooth),
    FOREIGN KEY (id_old_mark) REFERENCES mark(id_mark),
    FOREIGN KEY (id_new_mark) REFERENCES mark(id_mark)
+);
+
+CREATE TABLE personalized_category (
+    id_perso_category SERIAL PRIMARY KEY,
+    perso_category_name VARCHAR(255) NOT NULL
 );
 
 ----------------------------------------------------------------

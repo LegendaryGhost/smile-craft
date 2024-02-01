@@ -187,12 +187,17 @@ namespace smile_craft
 
         public void DisplayRestSuggestionAmount(decimal restAmout)
         {
-            displayPatientControl.restAmountLabel.Text = restAmout.ToString();
+            displayPatientControl.restAmountLabel.Text = restAmout.ToString("N2");
         }
 
         public void DisplaySuggestionTotal(int totalCost)
         {
-            displayPatientControl.costAmountLabel.Text = totalCost.ToString();
+            displayPatientControl.costAmountLabel.Text = totalCost.ToString("N2");
+        }
+
+        public DataGridView GetAverageDataGrid()
+        {
+            return displayPatientControl.averageDGV;
         }
     }
 }

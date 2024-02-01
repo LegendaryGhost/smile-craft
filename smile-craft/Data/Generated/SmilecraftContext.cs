@@ -26,6 +26,8 @@ public partial class SmilecraftContext : DbContext
 
     public virtual DbSet<Perform> Performs { get; set; }
 
+    public virtual DbSet<PersonalizedCategory> PersonalizedCategories { get; set; }
+
     public virtual DbSet<Price> Prices { get; set; }
 
     public virtual DbSet<State> States { get; set; }
@@ -120,6 +122,18 @@ public partial class SmilecraftContext : DbContext
                 .HasConstraintName("perform_id_tooth_fkey");
         });
 
+        modelBuilder.Entity<PersonalizedCategory>(entity =>
+        {
+            entity.HasKey(e => e.IdPersoCategory).HasName("personalized_category_pkey");
+
+            entity.ToTable("personalized_category");
+
+            entity.Property(e => e.IdPersoCategory).HasColumnName("id_perso_category");
+            entity.Property(e => e.PersoCategoryName)
+                .HasMaxLength(255)
+                .HasColumnName("perso_category_name");
+        });
+
         modelBuilder.Entity<Price>(entity =>
         {
             entity.HasKey(e => new { e.IdOperation, e.IdCategory }).HasName("price_pkey");
@@ -175,6 +189,7 @@ public partial class SmilecraftContext : DbContext
 
             entity.Property(e => e.IdTooth).HasColumnName("id_tooth");
             entity.Property(e => e.IdCategory).HasColumnName("id_category");
+            entity.Property(e => e.IdPersoCategory).HasColumnName("id_perso_category");
             entity.Property(e => e.Location)
                 .HasMaxLength(5)
                 .HasColumnName("location");
@@ -183,6 +198,10 @@ public partial class SmilecraftContext : DbContext
                 .HasForeignKey(d => d.IdCategory)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("tooth_id_category_fkey");
+
+            entity.HasOne(d => d.IdPersoCategoryNavigation).WithMany(p => p.Teeth)
+                .HasForeignKey(d => d.IdPersoCategory)
+                .HasConstraintName("fk_personalized_category");
         });
 
         modelBuilder.Entity<ToothPriority>(entity =>

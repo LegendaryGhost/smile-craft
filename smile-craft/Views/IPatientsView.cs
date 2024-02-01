@@ -18,6 +18,7 @@ namespace smile_craft.Views
         public DataGridView GetPatientOperationsDataGrid();
         public DataGridView GetPatientTeethStateDataGrid();
         public DataGridView GetSuggestedOperationsDataGrid();
+        public DataGridView GetAverageDataGrid();
         public ComboBox GetTeethCB();
         public ComboBox GetOperationsCB();
         public ComboBox GetPrioritiesCB();

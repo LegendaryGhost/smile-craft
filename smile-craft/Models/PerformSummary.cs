@@ -8,6 +8,7 @@ namespace smile_craft.Models
 {
     public class PerformSummary: Perform
     {
+        public string? Position { get; set; }
         public string? OperationName { get; set; }
         public string? CategoryName { get; set; }
         public int? CurrentMark { get; set; }

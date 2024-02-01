@@ -11,7 +11,11 @@ public partial class Tooth
 
     public int IdCategory { get; set; }
 
+    public int? IdPersoCategory { get; set; }
+
     public virtual Category IdCategoryNavigation { get; set; } = null!;
+
+    public virtual PersonalizedCategory? IdPersoCategoryNavigation { get; set; }
 
     public virtual ICollection<Perform> Performs { get; set; } = new List<Perform>();
 

@@ -31,6 +31,9 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             fullNameLabel = new Label();
             birthdayLabel = new Label();
             birthdayLabelText = new Label();
@@ -38,8 +41,11 @@
             operationsPage = new TabPage();
             operationsDGV = new DataGridView();
             teethStatePage = new TabPage();
+            panel2 = new Panel();
             teethStateDGV = new DataGridView();
             toothNumeringPB = new PictureBox();
+            panel1 = new Panel();
+            averageDGV = new DataGridView();
             newOperationPage = new TabPage();
             operationCB = new ComboBox();
             teethCB = new ComboBox();
@@ -66,8 +72,11 @@
             operationsPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)operationsDGV).BeginInit();
             teethStatePage.SuspendLayout();
+            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)teethStateDGV).BeginInit();
             ((System.ComponentModel.ISupportInitialize)toothNumeringPB).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)averageDGV).BeginInit();
             newOperationPage.SuspendLayout();
             dynamicGenerationPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)generatedOperationsDGV).BeginInit();
@@ -146,16 +155,26 @@
             // 
             // teethStatePage
             // 
-            teethStatePage.Controls.Add(teethStateDGV);
-            teethStatePage.Controls.Add(toothNumeringPB);
+            teethStatePage.Controls.Add(panel2);
+            teethStatePage.Controls.Add(panel1);
             teethStatePage.Font = new Font("Segoe UI", 9F);
-            teethStatePage.Location = new Point(4, 29);
+            teethStatePage.Location = new Point(4, 33);
             teethStatePage.Name = "teethStatePage";
             teethStatePage.Padding = new Padding(3);
-            teethStatePage.Size = new Size(965, 505);
+            teethStatePage.Size = new Size(965, 501);
             teethStatePage.TabIndex = 1;
             teethStatePage.Text = "Etat des dents";
             teethStatePage.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(teethStateDGV);
+            panel2.Controls.Add(toothNumeringPB);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(3, 173);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(959, 325);
+            panel2.TabIndex = 3;
             // 
             // teethStateDGV
             // 
@@ -179,7 +198,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             teethStateDGV.DefaultCellStyle = dataGridViewCellStyle2;
             teethStateDGV.Dock = DockStyle.Right;
-            teethStateDGV.Location = new Point(601, 3);
+            teethStateDGV.Location = new Point(389, 0);
             teethStateDGV.Name = "teethStateDGV";
             teethStateDGV.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -191,19 +210,66 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             teethStateDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             teethStateDGV.RowHeadersWidth = 51;
-            teethStateDGV.Size = new Size(361, 499);
+            teethStateDGV.Size = new Size(570, 325);
             teethStateDGV.TabIndex = 1;
             // 
             // toothNumeringPB
             // 
             toothNumeringPB.Dock = DockStyle.Left;
             toothNumeringPB.Image = Properties.Resources.tooth_numering;
-            toothNumeringPB.Location = new Point(3, 3);
+            toothNumeringPB.Location = new Point(0, 0);
             toothNumeringPB.Name = "toothNumeringPB";
-            toothNumeringPB.Size = new Size(592, 499);
+            toothNumeringPB.Size = new Size(391, 325);
             toothNumeringPB.SizeMode = PictureBoxSizeMode.Zoom;
             toothNumeringPB.TabIndex = 0;
             toothNumeringPB.TabStop = false;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(averageDGV);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(3, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(959, 170);
+            panel1.TabIndex = 2;
+            // 
+            // averageDGV
+            // 
+            averageDGV.AllowUserToAddRows = false;
+            averageDGV.AllowUserToDeleteRows = false;
+            averageDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Control;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            averageDGV.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            averageDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            averageDGV.DefaultCellStyle = dataGridViewCellStyle5;
+            averageDGV.Dock = DockStyle.Left;
+            averageDGV.Location = new Point(0, 0);
+            averageDGV.Name = "averageDGV";
+            averageDGV.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            averageDGV.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            averageDGV.RowHeadersWidth = 51;
+            averageDGV.Size = new Size(391, 170);
+            averageDGV.TabIndex = 0;
             // 
             // newOperationPage
             // 
@@ -289,9 +355,9 @@
             dynamicGenerationPage.Controls.Add(amountLabel);
             dynamicGenerationPage.Controls.Add(amountNUD);
             dynamicGenerationPage.Font = new Font("Segoe UI", 9F);
-            dynamicGenerationPage.Location = new Point(4, 33);
+            dynamicGenerationPage.Location = new Point(4, 29);
             dynamicGenerationPage.Name = "dynamicGenerationPage";
-            dynamicGenerationPage.Size = new Size(965, 501);
+            dynamicGenerationPage.Size = new Size(965, 505);
             dynamicGenerationPage.TabIndex = 3;
             dynamicGenerationPage.Text = "Suggestion intelligente";
             dynamicGenerationPage.UseVisualStyleBackColor = true;
@@ -387,7 +453,7 @@
             generatedOperationsDGV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             generatedOperationsDGV.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             generatedOperationsDGV.Dock = DockStyle.Bottom;
-            generatedOperationsDGV.Location = new Point(0, 240);
+            generatedOperationsDGV.Location = new Point(0, 244);
             generatedOperationsDGV.Name = "generatedOperationsDGV";
             generatedOperationsDGV.ReadOnly = true;
             generatedOperationsDGV.RowHeadersWidth = 51;
@@ -477,8 +543,11 @@
             operationsPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)operationsDGV).EndInit();
             teethStatePage.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)teethStateDGV).EndInit();
             ((System.ComponentModel.ISupportInitialize)toothNumeringPB).EndInit();
+            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)averageDGV).EndInit();
             newOperationPage.ResumeLayout(false);
             newOperationPage.PerformLayout();
             dynamicGenerationPage.ResumeLayout(false);
@@ -522,5 +591,8 @@
         public Label costAmountLabel;
         private Label costTextLabel;
         private Label label1;
+        private Panel panel2;
+        private Panel panel1;
+        public DataGridView averageDGV;
     }
 }

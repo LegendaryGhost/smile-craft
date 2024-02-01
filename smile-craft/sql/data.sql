@@ -1,4 +1,14 @@
-﻿INSERT INTO tooth_priority(priority_name) VALUES
+﻿INSERT INTO personalized_category(perso_category_name) VALUES
+    ('A'),
+    ('B'),
+    ('C'),
+    ('D');
+
+UPDATE tooth
+SET id_perso_category = 3
+WHERE id_tooth BETWEEN 25 AND 32;
+
+INSERT INTO tooth_priority(priority_name) VALUES
     ('Aesthetic'),
     ('Health');
 

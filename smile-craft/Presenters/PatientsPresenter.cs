@@ -3,6 +3,7 @@ using smile_craft.Data;
 using smile_craft.Models;
 using smile_craft.Utils;
 using smile_craft.Views;
+using System;
 using System.ComponentModel;
 
 namespace smile_craft.Presenter
@@ -76,6 +77,7 @@ namespace smile_craft.Presenter
             _context.SaveChanges();
             LoadPatientOperations(patientId ?? 0);
             LoadPatientTeethState(patientId ?? 0);
+            LoadPatientPersoCategoryAverage(patientId ?? 0);
             MessageBox.Show("Opération effectuée");
         }
 
@@ -275,11 +277,29 @@ namespace smile_craft.Presenter
                         _patientsView.DisplaySinglePatient(patient);
                         LoadPatientOperations(patientId);
                         LoadPatientTeethState(patientId);
+                        LoadPatientPersoCategoryAverage(patientId);
                         _suggestedOperations = [];
                         DeleteSuggestedOperations();
                     }
                 }
             }
+        }
+
+        private void LoadPatientPersoCategoryAverage(int patientId)
+        {
+            var result = _context.States
+                .Include(s => s.IdToothNavigation)
+                .Where(state => state.IdPatient == patientId)
+                .GroupBy(state => state.IdToothNavigation.IdPersoCategory)
+                .Select(group => new AverageSummary
+                {
+                    PersonalizedCategoryName = group.First().IdToothNavigation.IdPersoCategoryNavigation != null ? group.First().IdToothNavigation.IdPersoCategoryNavigation.PersoCategoryName : null,
+                    AverageMark1 = group.Average(state => state.IdMarkNavigation.Mark1)
+                })
+                .ToList();
+
+            BindingList<AverageSummary> list = new (result);
+            _patientsView.GetAverageDataGrid().DataSource = list;
         }
 
         private void LoadPatientOperations(int patientId)
@@ -351,11 +371,18 @@ namespace smile_craft.Presenter
                 DataPropertyName = "CategoryName"
             };
 
+            DataGridViewTextBoxColumn positionColumn = new()
+            {
+                Name = "Position",
+                DataPropertyName = "Position"
+            };
+
             DataGridViewTextBoxColumn noteColumn = new()
             {
                 Name = "Note actuelle",
                 DataPropertyName = "CurrentMark"
             };
+
             DataGridViewTextBoxColumn operationColumn = new()
             {
                 Name = "Opération",
@@ -372,6 +399,7 @@ namespace smile_craft.Presenter
 
             suggestionsGridView.Columns.Add(idColumn);
             suggestionsGridView.Columns.Add(categoryColumn);
+            suggestionsGridView.Columns.Add(positionColumn);
             suggestionsGridView.Columns.Add(noteColumn);
             suggestionsGridView.Columns.Add(operationColumn);
             suggestionsGridView.Columns.Add(priceColumn);
@@ -428,6 +456,7 @@ namespace smile_craft.Presenter
                     {
                         SaveMarkModification(newMarkId, patientId, toothId);
                         LoadPatientTeethState(patientId);
+                        LoadPatientPersoCategoryAverage(patientId);
                     };
 
                     modifyView.ShowDialog();
@@ -508,6 +537,7 @@ namespace smile_craft.Presenter
 
             LoadPatientOperations(patientId ?? 1);
             LoadPatientTeethState(patientId ?? 1);
+            LoadPatientPersoCategoryAverage(patientId ?? 1);
 
             MessageBox.Show("Opération(s) suggérées effectuées");
         }
